@@ -1,0 +1,54 @@
+{{- $fullName := printf "%s-%s" (include "hummerrisk.name" $) "data" }}
+{{- $pvcLogName := printf "%s-%s" $fullName "log" }}
+{{- $pvcFileName := printf "%s-%s" $fullName "file" }}
+{{- $pvcImageName := printf "%s-%s" $fullName "image" }}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ $pvcLogName }}
+  annotations:
+    # 与nfs-storageClass.yaml metadata.name保持一致
+    volume.beta.kubernetes.io/storage-class: "nfs"
+spec:
+  storageClassName: "{{ .Values.global.storageClass }}"
+  accessModes:
+    {{- range .Values.storage.accessModes }}
+    - {{ . | quote }}
+    {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.storage.logSize |quote }}
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ $pvcImageName }}
+  annotations:
+    # 与nfs-storageClass.yaml metadata.name保持一致
+    volume.beta.kubernetes.io/storage-class: "nfs"
+spec:
+  storageClassName: "nfs"
+  accessModes:
+    {{- range .Values.storage.accessModes }}
+    - {{ . | quote }}
+    {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.storage.imageSize |quote }}
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ $pvcFileName }}
+  annotations:
+    #与nfs-storageClass.yaml metadata.name保持一致
+    volume.beta.kubernetes.io/storage-class: "nfs"
+spec:
+  storageClassName: "{{ .Values.global.storageClass }}"
+  accessModes:
+    {{- range .Values.storage.accessModes }}
+    - {{ . | quote }}
+    {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.storage.fileSize |quote }}
