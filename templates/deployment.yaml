@@ -4,26 +4,26 @@ metadata:
   annotations:
     owner: hummercloud
   labels:
-    app: hummerrisk
-  name: hummerrisk
+    app: HummerRisk
+  name: HummerRisk
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hummerrisk
+      app: HummerRisk
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: hummerrisk
+        app: HummerRisk
     spec:
       #tolerations:
         #- effect: NoSchedule
         #  key: node-role.kubernetes.io/master
       containers:
       - name: hummer-risk
-        image: "{{ .Values.global.imageRegistry }}/hummerrisk/hummerrisk:{{ .Values.global.imageTag }}"
+        image: "{{ .Values.global.imageRegistry }}/HummerRisk/HummerRisk:{{ .Values.global.imageTag }}"
         #imagePullPolicy: IfNotPresent
         imagePullPolicy: Always
         resources:
@@ -50,13 +50,13 @@ spec:
               - curl -fsL http://localhost:8088 > /dev/null
         volumeMounts:
           - name: config-volume
-            mountPath: /opt/hummerrisk/conf
+            mountPath: /opt/HummerRisk/conf
           - name: log-volume
-            mountPath: /opt/hummerrisk/log
+            mountPath: /opt/HummerRisk/log
           - name: file-volume
-            mountPath: /opt/hummerrisk/file
+            mountPath: /opt/HummerRisk/file
           - name: image-volume
-            mountPath: /opt/hummerrisk/image
+            mountPath: /opt/HummerRisk/image
           - name: docker-sock
             mountPath: /var/run/docker.sock
         ports:
@@ -64,7 +64,7 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: hummerrisk-config
+            name: HummerRisk-config
             optional: true
         - name: log-volume
           persistentVolumeClaim:

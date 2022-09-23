@@ -1,4 +1,4 @@
-# Default values for hummerrisk.
+# Default values for HummerRisk.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -13,7 +13,7 @@ global:
   imagePullPolicy: Always
   storageClass: "default"
 
-hummerriskServer:
+HummerRiskServer:
   image:
     repository: nginx
     pullPolicy: IfNotPresent
@@ -31,7 +31,7 @@ storage:
     - ReadWriteMany
 
 
-nameOverride: "hummerrisk"
+nameOverride: "HummerRisk"
 fullnameOverride: "HummerRisk"
 
 serviceAccount:

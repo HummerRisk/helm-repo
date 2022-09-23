@@ -1,4 +1,4 @@
-{{- $fullName := printf "%s-%s" (include "hummerrisk.name" $) "data" }}
+{{- $fullName := printf "%s-%s" (include "HummerRisk.name" $) "data" }}
 {{- $pvcLogName := printf "%s-%s" $fullName "log" }}
 {{- $pvcFileName := printf "%s-%s" $fullName "file" }}
 {{- $pvcImageName := printf "%s-%s" $fullName "image" }}

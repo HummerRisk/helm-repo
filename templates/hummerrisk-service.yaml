@@ -5,12 +5,12 @@ metadata:
     kompose.cmd: kompose --file docker-compose-app.yml convert
     kompose.version: 1.26.1 (a9d05d509)
   labels:
-    app: hummerrisk
-  name: hummerrisk-web
+    app: HummerRisk
+  name: HummerRisk-web
 spec:
   ports:
-    - name: "web-hummerrisk"
+    - name: "web-HummerRisk"
       port: 80
       targetPort: 8088
   selector:
-    app: hummerrisk
+    app: HummerRisk
