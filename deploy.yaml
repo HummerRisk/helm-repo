@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: HummerRisk-config
+  name: hummerrisk-config
 data:
   HummerRisk.properties: |
     spring.datasource.url=jdbc:mysql://hr-mysql:3306/HummerRisk?autoReconnect=false&useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
@@ -120,7 +120,7 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: HummerRisk-config
+            name: hummerrisk-config
             optional: true
         - name: log-volume
           persistentVolumeClaim:

@@ -1,11 +1,9 @@
-{{- $fullName := printf "%s-%s" (include "HummerRisk.name" $) "data" }}
-{{- $pvcLogName := printf "%s-%s" $fullName "log" }}
-{{- $pvcFileName := printf "%s-%s" $fullName "file" }}
-{{- $pvcImageName := printf "%s-%s" $fullName "image" }}
+{{- $pvcFullName := printf "%s-%s" (include "hummerrisk.name" $) "data" }}
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ $pvcLogName }}
+  name: {{ $pvcFullName }}-logs
+  namespace: {{ .Release.Namespace | quote }}
   annotations:
     # 与nfs-storageClass.yaml metadata.name保持一致
     volume.beta.kubernetes.io/storage-class: "nfs"
@@ -22,7 +20,7 @@ spec:
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ $pvcImageName }}
+  name: {{ $pvcFullName }}-image
   annotations:
     # 与nfs-storageClass.yaml metadata.name保持一致
     volume.beta.kubernetes.io/storage-class: "nfs"
@@ -39,7 +37,7 @@ spec:
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ $pvcFileName }}
+  name: {{ $pvcFullName }}-file
   annotations:
     #与nfs-storageClass.yaml metadata.name保持一致
     volume.beta.kubernetes.io/storage-class: "nfs"

@@ -1,6 +1,6 @@
 {{- if .Values.ingress.enabled -}}
-{{- $fullName := include "HummerRisk.fullname" . -}}
-{{- $svcPort := .Values.service.port -}}
+{{- $fullName := include "hummerrisk.fullname" . -}}
+{{- $svcPort := .Values.hummerrisk.servicePort -}}
 {{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}
   {{- $_ := set .Values.ingress.annotations "kubernetes.io/ingress.class" .Values.ingress.className}}
@@ -16,8 +16,9 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: {{ $fullName }}
+  namespace: {{ .Release.Namespace | quote }}
   labels:
-    {{- include "HummerRisk.labels" . | nindent 4 }}
+    {{- include "hummerrisk.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -49,7 +50,7 @@ spec:
             backend:
               {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
               service:
-                name: {{ $fullName }}
+                name: {{ $fullName }}-web
                 port:
                   number: {{ $svcPort }}
               {{- else }}

@@ -1,6 +1,8 @@
 # Default values for HummerRisk.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+nameOverride: "hummerrisk"
+fullnameOverride: "hummerrisk"
 
 global:
   imageRegistry: "registry.cn-beijing.aliyuncs.com"
@@ -8,20 +10,38 @@ global:
   ## imagePullSecrets:
   ##   - myRegistryKeySecretName
   ##
-  imageTag: v0.3.1
   imagePullSecrets: []
   imagePullPolicy: Always
   storageClass: "default"
 
-HummerRiskServer:
+hummerrisk:
   image:
     repository: nginx
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-  replicaCount: 1
+    tag: v0.3.2
+  replicas: 1
   # servicePort is the HTTP listener port for the webserver
   servicePort: 80
+  serviceType: ClusterIP
+  sessionAffinity: ClientIP
 
+mysql:
+  enabled: true
+  image: mysql
+  imageTag: "8.0.28"
+  password: Password123@mysql
+  persistence:
+    enabled: true
+    accessModes: ReadWriteOnce
+    size: 50Gi
+
+externalMySQL:
+  host: mysql.local
+  port: 3306
+  username: root
+  password: ""
+  database: ""
 
 storage:
   logSize: 30Gi
@@ -29,10 +49,6 @@ storage:
   fileSize: 30Gi
   accessModes:
     - ReadWriteMany
-
-
-nameOverride: "HummerRisk"
-fullnameOverride: "HummerRisk"
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -56,18 +72,18 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
-service:
-  type: ClusterIP
-  port: 80
 
 ingress:
-  enabled: false
-  className: ""
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
+  enabled: true
+  className: "nginx"
+  annotations:
+    nginx.ingress.kubernetes.io/affinity: "cookie"
+    nginx.ingress.kubernetes.io/affinity-mode: "persistent"
+    nginx.ingress.kubernetes.io/session-cookie-name: "route"
+    # nginx.ingress.kubernetes.io/ingress.class: "nginx"
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: chart-example.local
+    - host: hummerrisk.example.local
       paths:
         - path: /
           pathType: ImplementationSpecific
@@ -76,27 +92,14 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-resources: {}
+resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
-
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
-
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}
+  limits:
+   cpu: 2
+   memory: 4Gi
+  requests:
+   cpu: 500m
+   memory: 1Gi

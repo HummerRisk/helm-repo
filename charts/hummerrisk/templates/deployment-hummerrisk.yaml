@@ -1,38 +1,36 @@
+{{- $pvcFullName := printf "%s-%s" (include "hummerrisk.name" $) "data" }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    owner: hummercloud
+    owner: hummercloud-{{ .Release.Namespace }}
   labels:
-    app: HummerRisk
-  name: HummerRisk
+    app: hummerrisk
+  name: hummerrisk
+  namespace: {{ .Release.Namespace | quote }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.hummerrisk.replicas }}
   selector:
     matchLabels:
-      app: HummerRisk
+      app: hummerrisk
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: HummerRisk
+        app: hummerrisk
     spec:
       #tolerations:
         #- effect: NoSchedule
         #  key: node-role.kubernetes.io/master
       containers:
       - name: hummer-risk
-        image: "{{ .Values.global.imageRegistry }}/HummerRisk/HummerRisk:{{ .Values.global.imageTag }}"
+        image: "{{ .Values.global.imageRegistry }}/hummerrisk/hummerrisk:{{ .Values.hummerrisk.image.tag }}"
         #imagePullPolicy: IfNotPresent
         imagePullPolicy: Always
-        resources:
-          limits:
-            cpu: 2000m
-            memory: 4Gi
-          requests:
-            cpu: 500m
-            memory: 500Mi
+        {{- if .Values.resources }}
+        resources: {{- toYaml .Values.resources | nindent 12 }}
+        {{- end }}
         livenessProbe:
           exec:
             command:
@@ -50,13 +48,13 @@ spec:
               - curl -fsL http://localhost:8088 > /dev/null
         volumeMounts:
           - name: config-volume
-            mountPath: /opt/HummerRisk/conf
+            mountPath: /opt/hummerrisk/conf
           - name: log-volume
-            mountPath: /opt/HummerRisk/log
+            mountPath: /opt/hummerrisk/log
           - name: file-volume
-            mountPath: /opt/HummerRisk/file
+            mountPath: /opt/hummerrisk/file
           - name: image-volume
-            mountPath: /opt/HummerRisk/image
+            mountPath: /opt/hummerrisk/image
           - name: docker-sock
             mountPath: /var/run/docker.sock
         ports:
@@ -64,17 +62,17 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: HummerRisk-config
+            name: hummerrisk-config
             optional: true
         - name: log-volume
           persistentVolumeClaim:
-            claimName: data-hr-logs
+            claimName: {{ $pvcFullName }}-logs
         - name: file-volume
           persistentVolumeClaim:
-            claimName: data-hr-file
+            claimName: {{ $pvcFullName }}-file
         - name: image-volume
           persistentVolumeClaim:
-            claimName: data-hr-image
+            claimName: {{ $pvcFullName }}-image
         - name: docker-sock
           hostPath:
             path: /var/run/docker.sock
