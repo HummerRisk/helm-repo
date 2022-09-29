@@ -5,8 +5,7 @@ metadata:
   name: {{ $pvcFullName }}-logs
   namespace: {{ .Release.Namespace | quote }}
   annotations:
-    # 与nfs-storageClass.yaml metadata.name保持一致
-    volume.beta.kubernetes.io/storage-class: "nfs"
+    volume.beta.kubernetes.io/storage-class: {{ .Values.global.storageClass }}
 spec:
   storageClassName: "{{ .Values.global.storageClass }}"
   accessModes:
@@ -22,8 +21,7 @@ apiVersion: v1
 metadata:
   name: {{ $pvcFullName }}-image
   annotations:
-    # 与nfs-storageClass.yaml metadata.name保持一致
-    volume.beta.kubernetes.io/storage-class: "nfs"
+    volume.beta.kubernetes.io/storage-class: {{ .Values.global.storageClass }}
 spec:
   storageClassName: "nfs"
   accessModes:
@@ -39,8 +37,7 @@ apiVersion: v1
 metadata:
   name: {{ $pvcFullName }}-file
   annotations:
-    #与nfs-storageClass.yaml metadata.name保持一致
-    volume.beta.kubernetes.io/storage-class: "nfs"
+    volume.beta.kubernetes.io/storage-class: {{ .Values.global.storageClass }}
 spec:
   storageClassName: "{{ .Values.global.storageClass }}"
   accessModes:

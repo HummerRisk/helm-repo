@@ -1,0 +1,137 @@
+{{ if .Values.mysql.enabled }}
+{{- $pvcFullName := printf "%s-%s" (include "hummerrisk.name" $) "data" }}
+{{- $fullName := include "hummerrisk.fullname" . -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $fullName }}-mysql
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app.kubernetes.io/name: mysql
+spec:
+  type: ClusterIP
+  clusterIP: None
+  publishNotReadyAddresses: true
+  ports:
+    - name: mysql
+      port: 3306
+      targetPort: mysql
+  selector:
+    app.kubernetes.io/name: mysql
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: hummerrisk-mysql
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app.kubernetes.io/name: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mysql
+  serviceName: hummerrisk-mysql
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: mysql
+        app.kubernetes.io/instance: hummerrisk-mysql
+    spec:
+      {{- if and .Values.serviceAccount.create }}
+      serviceAccountName: hummerrisk-mysql
+      {{- end }}
+      securityContext:
+        fsGroup: 1001
+      containers:
+        - name: mysql
+          image: "{{ .Values.global.imageRegistry }}/hummerrisk/mysql:{{ .Values.mysql.imageTag }}"
+          imagePullPolicy: "IfNotPresent"
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1001
+          env:
+            - name: BITNAMI_DEBUG
+              value: "false"
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: hummerrisk-mysql-password
+                  key: mysql-root-password
+            - name: MYSQL_DATABASE
+              value: "hummerrisk"
+          ports:
+            - name: mysql
+              containerPort: 3306
+          livenessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+            exec:
+              command:
+                - /bin/bash
+                - -ec
+                - |
+                  password_aux="${MYSQL_ROOT_PASSWORD:-}"
+                  if [[ -f "${MYSQL_ROOT_PASSWORD_FILE:-}" ]]; then
+                      password_aux=$(cat "$MYSQL_ROOT_PASSWORD_FILE")
+                  fi
+                  mysqladmin status -uroot -p"${password_aux}"
+          readinessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+            exec:
+              command:
+                - /bin/bash
+                - -ec
+                - |
+                  password_aux="${MYSQL_ROOT_PASSWORD:-}"
+                  if [[ -f "${MYSQL_ROOT_PASSWORD_FILE:-}" ]]; then
+                      password_aux=$(cat "$MYSQL_ROOT_PASSWORD_FILE")
+                  fi
+                  mysqladmin status -uroot -p"${password_aux}"
+          startupProbe:
+            failureThreshold: 10
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+            exec:
+              command:
+                - /bin/bash
+                - -ec
+                - |
+                  password_aux="${MYSQL_ROOT_PASSWORD:-}"
+                  if [[ -f "${MYSQL_ROOT_PASSWORD_FILE:-}" ]]; then
+                      password_aux=$(cat "$MYSQL_ROOT_PASSWORD_FILE")
+                  fi
+                  mysqladmin status -uroot -p"${password_aux}"
+          resources:
+            limits: {}
+            requests: {}
+          volumeMounts:
+            - name: mysql-data
+              mountPath: /var/lib/mysql
+            - name: config
+              mountPath: /etc/mysql/my.cnf
+              subPath: my.cnf
+      volumes:
+        - name: config
+          configMap:
+            defaultMode: 420
+            name: hummerrisk-mysql-config
+        - name: mysql-data
+          {{if .Values.mysql.persistence.enabled}}
+          persistentVolumeClaim:
+            claimName: {{ $pvcFullName }}-mysql
+          {{ else }}
+          emptyDir: { }
+          {{ end }}
+{{end}}

@@ -12,5 +12,5 @@ spec:
       targetPort: 8088
   selector:
     app: hummerrisk
-  type: ClusterIP
+  type: {{ .Values.hummerrisk.serviceType }}
   sessionAffinity: {{ .Values.hummerrisk.sessionAffinity }}

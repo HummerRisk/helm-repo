@@ -1,4 +1,5 @@
 {{- $pvcFullName := printf "%s-%s" (include "hummerrisk.name" $) "data" }}
+{{- $fullName := include "hummerrisk.fullname" . -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -24,7 +25,7 @@ spec:
         #- effect: NoSchedule
         #  key: node-role.kubernetes.io/master
       containers:
-      - name: hummer-risk
+      - name: hummerrisk
         image: "{{ .Values.global.imageRegistry }}/hummerrisk/hummerrisk:{{ .Values.hummerrisk.image.tag }}"
         #imagePullPolicy: IfNotPresent
         imagePullPolicy: Always

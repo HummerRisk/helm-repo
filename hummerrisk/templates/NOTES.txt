@@ -20,3 +20,11 @@
   echo "Visit http://127.0.0.1:8080 to use your application"
   kubectl --namespace {{ .Release.Namespace }} port-forward $POD_NAME 8080:$CONTAINER_PORT
 {{- end }}
+
+2. Login to hummerrisk with the default username and password：
+admin/hummer
+
+3. Update hummerrisk with helm:
+helm upgrade --set foo=bar {{ .Release.Name }} ./
+or
+helm upgrade [RELEASE] [CHART] [flags]

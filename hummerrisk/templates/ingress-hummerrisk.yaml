@@ -1,3 +1,4 @@
+{{- $password := include "db.password" . -}}
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "hummerrisk.fullname" . -}}
 {{- $svcPort := .Values.hummerrisk.servicePort -}}

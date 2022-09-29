@@ -10,9 +10,9 @@ global:
   ## imagePullSecrets:
   ##   - myRegistryKeySecretName
   ##
-  imagePullSecrets: []
+#  imagePullSecrets: []
   imagePullPolicy: Always
-  storageClass: "default"
+  storageClass: "nfs"
 
 hummerrisk:
   image:
@@ -29,14 +29,15 @@ hummerrisk:
 mysql:
   enabled: true
   image: mysql
-  imageTag: "8.0.28"
-  password: Password123@mysql
+  imageTag: "5.7.38"
+  rootPassword: "Hummer@password123"
   persistence:
     enabled: true
     accessModes: ReadWriteOnce
     size: 50Gi
 
 externalMySQL:
+  enabled: false
   host: mysql.local
   port: 3306
   username: root
@@ -44,15 +45,16 @@ externalMySQL:
   database: ""
 
 storage:
-  logSize: 30Gi
+  logSize: 20Gi
   imageSize: 30Gi
-  fileSize: 30Gi
+  fileSize: 10Gi
+  dbSize: 50Gi
   accessModes:
     - ReadWriteMany
 
 serviceAccount:
   # Specifies whether a service account should be created
-  create: true
+  create: false
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
