@@ -16,24 +16,26 @@
     helm repo update
 ```
 
-3. 安装HummerRisk
+3. 安装 hummerrisk
 ```shell
     # 查询
     helm search repo hummerrisk
+    
     # 安装
     helm install hummerrisk hummerrisk/hummerrisk -n hummer --create-namespace
 ```
 
-4. 更新hummerrisk
+4. 更新 hummerrisk
 ```shell
     # 更新某个配置项，例如修改 Service 类型为 NodePort
     helm upgrade hummerrisk hummerrisk/hummerrisk --set hummerrisk.serviceType=NodePort -ndev
+    
     # 更新 hummerrisk
     helm upgrade --install -n hummer hummerrisk hummerrisk/hummerrisk [--version 0.3.3 ] [-f values.yaml]
 ```
 
 # 配置参数说明
-通过修改 vales.yaml 文件或者 helm --set 可以修改HummerRisk安装参数，例如：端口、存储信息等，以下为默认配置项，可根据实际环境修改。
+通过修改 vales.yaml 文件或者 helm --set 可以修改 HummerRisk 安装参数，例如：端口、存储信息等，以下为默认配置项，可根据实际环境修改。
 ```yaml
 # 全局配置
 global:
