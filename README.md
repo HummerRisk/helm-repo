@@ -7,7 +7,7 @@
 
 1. 添加仓库源
 ```shell
-    helm add repo hummerrisk https://hummerrisk.github.io/helm-repo
+    helm repo add hummerrisk https://hummerrisk.github.io/helm-repo
 ```
 
 2. 更新 helm 仓库
@@ -32,6 +32,21 @@
     
     # 更新 hummerrisk
     helm upgrade --install -n hummer hummerrisk hummerrisk/hummerrisk [--version 0.3.3 ] [-f values.yaml]
+```
+
+5. 使用外部数据库部署 hummerrisk
+```shell
+    # 使用 --set 设置外部数据库配置信，存储信息
+    helm install hummerrisk hummerrisk/hummerrisk ./ -n lxh --create-namespace  \
+    --set global.storageClass="cfs"  \
+    --set storage.accessModes={"ReadWriteOnce"}  \
+    --set mysql.enabled=false   \
+    --set externalMySQL.enabled=true  \
+    --set externalMySQL.host="172.21.0.7"   \
+    --set externalMySQL.username="root"   \
+    --set externalMySQL.port=3306   \
+    --set externalMySQL.password="Your password"  \
+    --set externalMySQL.databases="hummerrisk"
 ```
 
 # 配置参数说明
