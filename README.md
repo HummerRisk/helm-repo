@@ -37,7 +37,7 @@
 5. 使用外部数据库部署 hummerrisk
 ```shell
     # 使用 --set 设置外部数据库配置信，存储信息
-    helm install hummerrisk hummerrisk/hummerrisk ./ -n lxh --create-namespace  \
+    helm install hummerrisk hummerrisk/hummerrisk -n hummer --create-namespace  \
     --set global.storageClass="cfs"  \
     --set storage.accessModes={"ReadWriteOnce"}  \
     --set mysql.enabled=false   \
