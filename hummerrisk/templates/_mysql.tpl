@@ -31,9 +31,9 @@ db config
 define a random password
 */}}
 {{- if .Values.externalMySQL.enabled }}
-{{- required "A valid .Values.externalMySQL.password entry required!" .Values.externalMySQL.password | quote -}}
+{{- required "A valid .Values.externalMySQL.password entry required!" .Values.externalMySQL.password -}}
 {{- else }}
-{{- required "A valid .Values.mysql.rootPassword entry required!"  .Values.mysql.rootPassword | quote -}}
+{{- required "A valid .Values.mysql.rootPassword entry required!"  .Values.mysql.rootPassword -}}
 {{- end }}
 {{- end }}
 
