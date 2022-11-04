@@ -2,8 +2,21 @@ apiVersion: v1
 entries:
   hummerrisk:
   - apiVersion: v2
+    appVersion: v0.5.0
+    created: "2022-11-04T17:43:19.450987+08:00"
+    description: HummerRisk is an open source cloud-native security platform that
+      addresses cloud-native security and governance issues in a non-intrusive way.
+      Core capabilities include hybrid cloud security governance and K8S container
+      cloud security detection.
+    digest: cb3816182f3664d8e429ff0ca7fdd63a2437d5c281b61f4be1e36691fb086fc4
+    name: hummerrisk
+    type: application
+    urls:
+    - https://hummerrisk.github.io/helm-repo/hummerrisk-0.4.0.tgz
+    version: 0.4.0
+  - apiVersion: v2
     appVersion: v0.4.1
-    created: "2022-10-27T17:07:31.295158+08:00"
+    created: "2022-11-04T17:43:19.450471+08:00"
     description: HummerRisk is an open source cloud-native security platform that
       addresses cloud-native security and governance issues in a non-intrusive way.
       Core capabilities include hybrid cloud security governance and K8S container
@@ -16,7 +29,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: v0.4.0
-    created: "2022-10-27T17:07:31.294636+08:00"
+    created: "2022-11-04T17:43:19.449906+08:00"
     description: A Helm chart for Kubernetes
     digest: 134fe8f7ada2c91620f34c0b40c40e46a170945e08a858c979386f892e32c4a9
     name: hummerrisk
@@ -26,7 +39,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: v0.3.2
-    created: "2022-10-27T17:07:31.294244+08:00"
+    created: "2022-11-04T17:43:19.44939+08:00"
     description: A Helm chart for Kubernetes
     digest: 187509cc93d092236fc67040be798c57b48d1e38f449ba4d3c862f564a516f9c
     name: hummerrisk
@@ -34,4 +47,4 @@ entries:
     urls:
     - https://hummerrisk.github.io/helm-repo/hummerrisk-0.1.0.tgz
     version: 0.1.0
-generated: "2022-10-27T17:07:31.293606+08:00"
+generated: "2022-11-04T17:43:19.448638+08:00"
