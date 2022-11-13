@@ -56,8 +56,6 @@ spec:
             mountPath: /opt/hummerrisk/file
           - name: image-volume
             mountPath: /opt/hummerrisk/image
-          - name: docker-sock
-            mountPath: /var/run/docker.sock
         ports:
           - containerPort: 8088
       volumes:
@@ -74,6 +72,3 @@ spec:
         - name: image-volume
           persistentVolumeClaim:
             claimName: {{ $pvcFullName }}-image
-        - name: docker-sock
-          hostPath:
-            path: /var/run/docker.sock
