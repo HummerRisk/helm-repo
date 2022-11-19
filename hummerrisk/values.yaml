@@ -19,8 +19,9 @@ hummerrisk:
     repository: nginx
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: v0.5.0
+    tag: v0.5.1
   replicas: 1
+  trivyDBVersion: "2022111508"
   # servicePort is the HTTP listener port for the webserver
   servicePort: 80
   serviceType: ClusterIP
