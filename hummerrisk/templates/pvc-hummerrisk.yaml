@@ -47,3 +47,19 @@ spec:
   resources:
     requests:
       storage: {{ .Values.storage.fileSize |quote }}
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ $pvcFullName }}-trivy-db
+  annotations:
+    volume.beta.kubernetes.io/storage-class: {{ .Values.global.storageClass }}
+spec:
+  storageClassName: "{{ .Values.global.storageClass }}"
+  accessModes:
+    {{- range .Values.storage.accessModes }}
+    - {{ . | quote }}
+    {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.storage.trivySize |quote }}

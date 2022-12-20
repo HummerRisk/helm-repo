@@ -6,29 +6,30 @@ metadata:
   annotations:
     owner: hummercloud-{{ .Release.Namespace }}
   labels:
-    app: hummerrisk
-  name: hummerrisk
+    app: hummerrisk-trivy-server
+  name: hummerrisk-trivy-server
   namespace: {{ .Release.Namespace | quote }}
 spec:
   replicas: {{ .Values.hummerrisk.replicas }}
   selector:
     matchLabels:
-      app: hummerrisk
+      app: hummerrisk-trivy-server
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: hummerrisk
+        app: hummerrisk-trivy-server
     spec:
       #tolerations:
         #- effect: NoSchedule
         #  key: node-role.kubernetes.io/master
       containers:
-      - name: hummerrisk
+      - name: hummerrisk-trivy-server
         image: "{{ .Values.global.imageRegistry }}/hummerrisk/hummerrisk:{{ .Values.hummerrisk.image.tag }}"
         #imagePullPolicy: IfNotPresent
         imagePullPolicy: {{ .Values.hummerrisk.image.pullPolicy }}
+        command: ["trivy server --skip-update --listen 0.0.0.0:4975"]
         {{- if .Values.resources }}
         resources: {{- toYaml .Values.resources | nindent 12 }}
         {{- end }}
@@ -37,7 +38,7 @@ spec:
             command:
               - /bin/sh
               - -ec
-              - curl -fsL http://localhost:8088 > /dev/null
+              - curl -fsL http://localhost:4975/healthz > /dev/null
           failureThreshold: 10
           periodSeconds: 10
           timeoutSeconds: 5
@@ -46,20 +47,12 @@ spec:
             command:
               - /bin/sh
               - -ec
-              - curl -fsL http://localhost:8088 > /dev/null
+              - curl -fsL http://localhost:4975/healthz > /dev/null
         volumeMounts:
-          - name: config-volume
-            mountPath: /opt/hummerrisk/conf
-          - name: log-volume
-            mountPath: /opt/hummerrisk/log
-          - name: file-volume
-            mountPath: /opt/hummerrisk/file
-          - name: image-volume
-            mountPath: /opt/hummerrisk/image
           - name: trivy-db
             mountPath: /root/.cache/trivy/db/
         ports:
-          - containerPort: 8088
+          - containerPort: 4975
       initContainers:
       - name: db-init
         image: "{{ .Values.global.imageRegistry }}/hummerrisk/trivy-db:{{ .Values.hummerrisk.image.tag }}-{{ .Values.trivyServer.trivyDBVersion }}"
@@ -70,18 +63,6 @@ spec:
           - mountPath: /opt
             name: trivy-db
       volumes:
-        - name: config-volume
-          configMap:
-            name: hummerrisk-config
-            optional: true
-        - name: log-volume
+        - name: trivy-db
           persistentVolumeClaim:
-            claimName: {{ $pvcFullName }}-logs
-        - name: file-volume
-          persistentVolumeClaim:
-            claimName: {{ $pvcFullName }}-file
-        - name: image-volume
-          persistentVolumeClaim:
-            claimName: {{ $pvcFullName }}-image
-        - emptyDir: { }
-          name: trivy-db
+            claimName: {{ $pvcFullName }}-trivy-db

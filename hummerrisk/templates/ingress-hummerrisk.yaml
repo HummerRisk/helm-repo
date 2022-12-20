@@ -2,6 +2,7 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "hummerrisk.fullname" . -}}
 {{- $svcPort := .Values.hummerrisk.servicePort -}}
+{{- $trivySvcPort := .Values.trivyServer.servicePort -}}
 {{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}
   {{- $_ := set .Values.ingress.annotations "kubernetes.io/ingress.class" .Values.ingress.className}}
@@ -39,7 +40,7 @@ spec:
     {{- end }}
   {{- end }}
   rules:
-    {{- range .Values.ingress.hosts }}
+    {{- range .Values.ingress.hummerrisk }}
     - host: {{ .host | quote }}
       http:
         paths:
@@ -57,6 +58,27 @@ spec:
               {{- else }}
               serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}
+              {{- end }}
+          {{- end }}
+    {{- end }}
+    {{- range .Values.ingress.trivyServer }}
+    - host: {{ .host | quote }}
+      http:
+        paths:
+          {{- range .paths }}
+          - path: {{ .path }}
+            {{- if and .pathType (semverCompare ">=1.18-0" $.Capabilities.KubeVersion.GitVersion) }}
+            pathType: {{ .pathType }}
+            {{- end }}
+            backend:
+              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+              service:
+                name: {{ $fullName }}-trivy-server
+                port:
+                  number: {{ $trivySvcPort }}
+              {{- else }}
+              serviceName: {{ $fullName }}-trivy-server
+              servicePort: {{ $trivySvcPort }}
               {{- end }}
           {{- end }}
     {{- end }}
