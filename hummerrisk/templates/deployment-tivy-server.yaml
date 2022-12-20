@@ -22,46 +22,47 @@ spec:
         app: hummerrisk-trivy-server
     spec:
       #tolerations:
-        #- effect: NoSchedule
-        #  key: node-role.kubernetes.io/master
+      #- effect: NoSchedule
+      #  key: node-role.kubernetes.io/master
       containers:
-      - name: hummerrisk-trivy-server
-        image: "{{ .Values.global.imageRegistry }}/hummerrisk/hummerrisk:{{ .Values.hummerrisk.image.tag }}"
-        #imagePullPolicy: IfNotPresent
-        imagePullPolicy: {{ .Values.hummerrisk.image.pullPolicy }}
-        command: ["trivy server --skip-update --listen 0.0.0.0:4975"]
+        - name: hummerrisk-trivy-server
+          image: "{{ .Values.global.imageRegistry }}/hummerrisk/hummerrisk:{{ .Values.hummerrisk.image.tag }}"
+          #imagePullPolicy: IfNotPresent
+          imagePullPolicy: {{ .Values.hummerrisk.image.pullPolicy }}
+          command: [ "trivy" ]
+          args: [ "server","--skip-update","--listen","0.0.0.0:4975" ]
         {{- if .Values.resources }}
-        resources: {{- toYaml .Values.resources | nindent 12 }}
+          resources: {{- toYaml .Values.resources | nindent 12 }}
         {{- end }}
-        livenessProbe:
-          exec:
-            command:
-              - /bin/sh
-              - -ec
-              - curl -fsL http://localhost:4975/healthz > /dev/null
-          failureThreshold: 10
-          periodSeconds: 10
-          timeoutSeconds: 5
-        readinessProbe:
-          exec:
-            command:
-              - /bin/sh
-              - -ec
-              - curl -fsL http://localhost:4975/healthz > /dev/null
-        volumeMounts:
-          - name: trivy-db
-            mountPath: /root/.cache/trivy/db/
-        ports:
-          - containerPort: 4975
+          livenessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -ec
+                - curl -fsL http://localhost:4975/healthz > /dev/null
+            failureThreshold: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+          readinessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -ec
+                - curl -fsL http://localhost:4975/healthz > /dev/null
+          volumeMounts:
+            - name: trivy-db
+              mountPath: /root/.cache/trivy/db/
+          ports:
+            - containerPort: 4975
       initContainers:
-      - name: db-init
-        image: "{{ .Values.global.imageRegistry }}/hummerrisk/trivy-db:{{ .Values.hummerrisk.image.tag }}-{{ .Values.trivyServer.trivyDBVersion }}"
-        imagePullPolicy: {{ .Values.hummerrisk.image.pullPolicy }}
-        command: [ 'sh','-c' ]
-        args: [ 'tar zxf /db/trivy-offline-v1-{{ .Values.trivyServer.trivyDBVersion }}.db.tar.gz -C /opt' ]
-        volumeMounts:
-          - mountPath: /opt
-            name: trivy-db
+        - name: db-init
+          image: "{{ .Values.global.imageRegistry }}/hummerrisk/trivy-db:{{ .Values.hummerrisk.image.tag }}-{{ .Values.trivyServer.trivyDBVersion }}"
+          imagePullPolicy: {{ .Values.hummerrisk.image.pullPolicy }}
+          command: [ 'sh','-c' ]
+          args: [ 'tar zxf /db/trivy-offline-v1-{{ .Values.trivyServer.trivyDBVersion }}.db.tar.gz -C /opt' ]
+          volumeMounts:
+            - mountPath: /opt
+              name: trivy-db
       volumes:
         - name: trivy-db
           persistentVolumeClaim:

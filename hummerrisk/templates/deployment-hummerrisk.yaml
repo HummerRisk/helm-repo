@@ -83,5 +83,6 @@ spec:
         - name: image-volume
           persistentVolumeClaim:
             claimName: {{ $pvcFullName }}-image
-        - emptyDir: { }
-          name: trivy-db
+        - name: trivy-db
+          persistentVolumeClaim:
+            claimName: {{ $pvcFullName }}-trivy-db
