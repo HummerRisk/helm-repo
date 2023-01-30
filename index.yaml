@@ -2,8 +2,21 @@ apiVersion: v1
 entries:
   hummerrisk:
   - apiVersion: v2
+    appVersion: v0.9.0
+    created: "2023-01-30T12:50:37.688848+08:00"
+    description: HummerRisk is an open source cloud-native security platform that
+      addresses cloud-native security and governance issues in a non-intrusive way.
+      Core capabilities include hybrid cloud security governance and K8S container
+      cloud security detection.
+    digest: 2db04bac10ecb164e079101e62bd8b659b3f681f6dc71057ae1390b6361dfdea
+    name: hummerrisk
+    type: application
+    urls:
+    - https://hummerrisk.github.io/helm-repo/hummerrisk-0.9.0.tgz
+    version: 0.9.0
+  - apiVersion: v2
     appVersion: v0.8.0
-    created: "2023-01-08T21:25:51.564832+08:00"
+    created: "2023-01-30T12:50:37.688403+08:00"
     description: HummerRisk is an open source cloud-native security platform that
       addresses cloud-native security and governance issues in a non-intrusive way.
       Core capabilities include hybrid cloud security governance and K8S container
@@ -16,7 +29,7 @@ entries:
     version: 0.8.0
   - apiVersion: v2
     appVersion: v0.7.0
-    created: "2023-01-08T21:25:51.5641+08:00"
+    created: "2023-01-30T12:50:37.687891+08:00"
     description: HummerRisk is an open source cloud-native security platform that
       addresses cloud-native security and governance issues in a non-intrusive way.
       Core capabilities include hybrid cloud security governance and K8S container
@@ -29,7 +42,7 @@ entries:
     version: 0.7.0
   - apiVersion: v2
     appVersion: v0.6.0
-    created: "2023-01-08T21:25:51.560566+08:00"
+    created: "2023-01-30T12:50:37.687349+08:00"
     description: HummerRisk is an open source cloud-native security platform that
       addresses cloud-native security and governance issues in a non-intrusive way.
       Core capabilities include hybrid cloud security governance and K8S container
@@ -42,7 +55,7 @@ entries:
     version: 0.6.0
   - apiVersion: v2
     appVersion: v0.5.1
-    created: "2023-01-08T21:25:51.5601+08:00"
+    created: "2023-01-30T12:50:37.685471+08:00"
     description: HummerRisk is an open source cloud-native security platform that
       addresses cloud-native security and governance issues in a non-intrusive way.
       Core capabilities include hybrid cloud security governance and K8S container
@@ -55,7 +68,7 @@ entries:
     version: 0.5.1
   - apiVersion: v2
     appVersion: v0.5.0
-    created: "2023-01-08T21:25:51.559659+08:00"
+    created: "2023-01-30T12:50:37.684835+08:00"
     description: HummerRisk is an open source cloud-native security platform that
       addresses cloud-native security and governance issues in a non-intrusive way.
       Core capabilities include hybrid cloud security governance and K8S container
@@ -68,7 +81,7 @@ entries:
     version: 0.4.0
   - apiVersion: v2
     appVersion: v0.4.1
-    created: "2023-01-08T21:25:51.559221+08:00"
+    created: "2023-01-30T12:50:37.684377+08:00"
     description: HummerRisk is an open source cloud-native security platform that
       addresses cloud-native security and governance issues in a non-intrusive way.
       Core capabilities include hybrid cloud security governance and K8S container
@@ -81,7 +94,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: v0.4.0
-    created: "2023-01-08T21:25:51.558664+08:00"
+    created: "2023-01-30T12:50:37.683845+08:00"
     description: A Helm chart for Kubernetes
     digest: 134fe8f7ada2c91620f34c0b40c40e46a170945e08a858c979386f892e32c4a9
     name: hummerrisk
@@ -91,7 +104,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: v0.3.2
-    created: "2023-01-08T21:25:51.558171+08:00"
+    created: "2023-01-30T12:50:37.683332+08:00"
     description: A Helm chart for Kubernetes
     digest: 187509cc93d092236fc67040be798c57b48d1e38f449ba4d3c862f564a516f9c
     name: hummerrisk
@@ -99,4 +112,4 @@ entries:
     urls:
     - https://hummerrisk.github.io/helm-repo/hummerrisk-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-08T21:25:51.557391+08:00"
+generated: "2023-01-30T12:50:37.682582+08:00"
