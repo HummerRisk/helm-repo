@@ -56,19 +56,8 @@ spec:
             mountPath: /opt/hummerrisk/file
           - name: image-volume
             mountPath: /opt/hummerrisk/image
-          - name: trivy-db
-            mountPath: /root/.cache/trivy/db/
         ports:
           - containerPort: 8088
-      initContainers:
-      - name: db-init
-        image: "{{ .Values.global.imageRegistry }}/hummerrisk/trivy-db:{{ .Values.hummerrisk.image.tag }}-{{ .Values.trivyServer.trivyDBVersion }}"
-        imagePullPolicy: {{ .Values.hummerrisk.image.pullPolicy }}
-        command: [ 'sh','-c' ]
-        args: [ 'tar zxf /db/trivy-offline-v2-{{ .Values.trivyServer.trivyDBVersion }}.db.tar.gz -C /opt' ]
-        volumeMounts:
-          - mountPath: /opt
-            name: trivy-db
       volumes:
         - name: config-volume
           configMap:
@@ -83,6 +72,3 @@ spec:
         - name: image-volume
           persistentVolumeClaim:
             claimName: {{ $pvcFullName }}-image
-        - name: trivy-db
-          persistentVolumeClaim:
-            claimName: {{ $pvcFullName }}-trivy-db
