@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     app: hummerrisk-trivy-server
-  name: trivy_server
+  name: trivy-server
   namespace: {{ .Release.Namespace | quote }}
 spec:
   ports:
