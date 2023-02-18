@@ -56,6 +56,8 @@ spec:
             mountPath: /opt/hummerrisk/file
           - name: image-volume
             mountPath: /opt/hummerrisk/image
+          - name: trivy-db
+            mountPath: /root/.cache/trivy/
         ports:
           - containerPort: 8088
       volumes:
@@ -72,3 +74,6 @@ spec:
         - name: image-volume
           persistentVolumeClaim:
             claimName: {{ $pvcFullName }}-image
+        - name: trivy-db
+          persistentVolumeClaim:
+            claimName: {{ $pvcFullName }}-trivy-db
