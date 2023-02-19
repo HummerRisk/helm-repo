@@ -4,10 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="18c8e2c7-082d-41d1-954c-128d4f03ef0b" name="变更" comment="">
-      <change beforePath="$PROJECT_DIR$/hummerrisk/Chart.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/hummerrisk/Chart.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hummerrisk/templates/service-trivy-server.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/hummerrisk/templates/service-trivy-server.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hummerrisk/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/hummerrisk/values.yaml" afterDir="false" />
+    <list default="true" id="aa5e898d-9f97-47be-851f-2d7b357ba8ec" name="变更" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hummerrisk/Chart.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/Chart.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hummerrisk/templates/NOTES.txt" beforeDir="false" afterPath="$PROJECT_DIR$/charts/templates/NOTES.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hummerrisk/templates/_helpers.tpl" beforeDir="false" afterPath="$PROJECT_DIR$/charts/templates/_helpers.tpl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hummerrisk/templates/_mysql.tpl" beforeDir="false" afterPath="$PROJECT_DIR$/charts/templates/_mysql.tpl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hummerrisk/templates/configmap-hummerrisk.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/templates/configmap-hummerrisk.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hummerrisk/templates/deployment-hummerrisk.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/templates/deployment-hummerrisk.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hummerrisk/templates/deployment-tivy-server.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/templates/deployment-tivy-server.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hummerrisk/templates/ingress-hummerrisk.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/templates/ingress-hummerrisk.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hummerrisk/templates/mysql/configmap-mysql.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/templates/mysql/configmap-mysql.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hummerrisk/templates/mysql/mysql-deploy.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/templates/mysql/mysql-deploy.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hummerrisk/templates/mysql/pvc-mysql.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/templates/mysql/pvc-mysql.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hummerrisk/templates/mysql/secret-mysql.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/templates/mysql/secret-mysql.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hummerrisk/templates/pvc-hummerrisk.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/templates/pvc-hummerrisk.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hummerrisk/templates/service-hummerrisk.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/templates/service-hummerrisk.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hummerrisk/templates/service-trivy-server.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/templates/service-trivy-server.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hummerrisk/templates/serviceaccount.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/templates/serviceaccount.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hummerrisk/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/values.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
