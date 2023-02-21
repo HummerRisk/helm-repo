@@ -17,3 +17,4 @@
 /.idea/helm-chart.iml
 /.idea/modules.xml
 /.idea/vcs.xml
+.workspace.xml

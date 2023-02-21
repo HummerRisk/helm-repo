@@ -35,7 +35,7 @@ mysql:
     accessModes: ReadWriteOnce
 
 trivyServer:
-  trivyDBVersion: "2023011805"
+  trivyDBVersion: "2023021809"
   servicePort: 4975
   serviceType: ClusterIP
 
