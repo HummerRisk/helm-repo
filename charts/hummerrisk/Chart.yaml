@@ -5,4 +5,4 @@ description: HummerRisk is an open source cloud-native security platform that ad
   include hybrid cloud security governance and K8S container cloud security detection.
 name: hummerrisk
 type: application
-version: 0.10.0
+version: 0.10.1

@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aa5e898d-9f97-47be-851f-2d7b357ba8ec" name="变更" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-tivy-server.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-tivy-server.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/Chart.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/Chart.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +70,10 @@
     <MESSAGE value="feat(service): 更新 trivy server serviceName" />
     <MESSAGE value="feat(trivy): 更新 trivy db 挂载" />
     <MESSAGE value="style(dir): 调整目录结构" />
-    <option name="LAST_COMMIT_MESSAGE" value="style(dir): 调整目录结构" />
+    <MESSAGE value="feat(trivy server): 更新 trivy Server 启动命令" />
+    <MESSAGE value="feat(release): update to v0.10.0" />
+    <MESSAGE value="feat(trivy): update trivy db" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(trivy): update trivy db" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
