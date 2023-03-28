@@ -61,7 +61,7 @@ spec:
                   name: hummerrisk-mysql-password
                   key: mysql-root-password
             - name: MYSQL_DATABASE
-              value: "hummerrisk"
+              value: "hummer_risk"
           ports:
             - name: mysql
               containerPort: 3306
@@ -122,11 +122,18 @@ spec:
             - name: config
               mountPath: /etc/mysql/my.cnf
               subPath: my.cnf
+            - name: init
+              mountPath: /docker-entrypoint-initdb.d/init.sql
+              subPath: init.sql
       volumes:
         - name: config
           configMap:
             defaultMode: 420
             name: hummerrisk-mysql-config
+        - name: init
+          configMap:
+            defaultMode: 420
+            name: hummerrisk-mysql-init
         - name: mysql-data
           {{if .Values.mysql.persistence.enabled}}
           persistentVolumeClaim:

@@ -1,0 +1,66 @@
+{{- $pvcFullName := printf "%s-%s" (include "hummerrisk.name" $) "data" }}
+{{- $fullName := include "hummerrisk.fullname" . -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    owner: hummercloud-{{ .Release.Namespace }}
+  labels:
+    app: hummerrisk
+  name: hummerrisk
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  replicas: {{ .Values.hummerrisk.replicas }}
+  selector:
+    matchLabels:
+      app: hummerrisk
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: hummerrisk
+    spec:
+      #tolerations:
+        #- effect: NoSchedule
+        #  key: node-role.kubernetes.io/master
+      containers:
+      - name: hummerrisk
+        image: "{{ .Values.global.imageRegistry }}/hummerrisk/job:{{ .Values.hummerrisk.image.tag }}"
+        #imagePullPolicy: IfNotPresent
+        imagePullPolicy: {{ .Values.hummerrisk.image.pullPolicy }}
+        {{- if .Values.resources }}
+        resources: {{- toYaml .Values.resources | nindent 12 }}
+        {{- end }}
+        livenessProbe:
+          exec:
+            command:
+              - /bin/sh
+              - -ec
+              - curl -fsL http://localhost:8084/xxl-job-admin/healthz > /dev/null
+          failureThreshold: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+        readinessProbe:
+          exec:
+            command:
+              - /bin/sh
+              - -ec
+              - curl -fsL http://localhost:8084/xxl-job-admin/healthz > /dev/null
+        volumeMounts:
+          - name: config-volume
+            mountPath: /opt/hummerrisk/conf
+          - name: log-volume
+            mountPath: /opt/hummerrisk/log
+          - name: file-volume
+            mountPath: /opt/hummerrisk/file
+          - name: image-volume
+            mountPath: /opt/hummerrisk/image
+          - name: trivy-db
+            mountPath: /root/.cache/trivy/
+        ports:
+          - containerPort: 8088
+      volumes:
+        - name: log-volume
+          persistentVolumeClaim:
+            claimName: {{ $pvcFullName }}-logs

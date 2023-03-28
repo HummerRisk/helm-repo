@@ -1,0 +1,64 @@
+  deployment-hummerrisk.yaml{{- $pvcFullName := printf "%s-%s" (include "hummerrisk.name" $) "data" }}
+{{- $fullName := include "hummerrisk.fullname" . -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    owner: hummercloud-{{ .Release.Namespace }}
+  labels:
+    app: hummerrisk
+  name: hummerrisk
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  replicas: {{ .Values.hummerrisk.replicas }}
+  selector:
+    matchLabels:
+      app: hummerrisk
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: hummerrisk
+    spec:
+      #tolerations:
+        #- effect: NoSchedule
+        #  key: node-role.kubernetes.io/master
+      containers:
+      - name: hummerrisk
+        image: "{{ .Values.global.imageRegistry }}/hummerrisk/ui:{{ .Values.hummerrisk.image.tag }}"
+        #imagePullPolicy: IfNotPresent
+        imagePullPolicy: {{ .Values.hummerrisk.image.pullPolicy }}
+        {{- if .Values.resources }}
+        resources: {{- toYaml .Values.resources | nindent 12 }}
+        {{- end }}
+        livenessProbe:
+          exec:
+            command:
+              - /bin/sh
+              - -ec
+              - curl -fsL http://localhost:80 > /dev/null
+          failureThreshold: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+        readinessProbe:
+          exec:
+            command:
+              - /bin/sh
+              - -ec
+              - curl -fsL http://localhost:80 > /dev/null
+        volumeMounts:
+          - name: config-volume
+            mountPath: /etc/nginx/conf.d/default.conf
+          - name: log-volume
+            mountPath: /opt/hummerrisk/log
+        ports:
+          - containerPort: 8088
+      volumes:
+        - name: config-volume
+          configMap:
+            name: hummerrisk-web-config
+            optional: true
+        - name: log-volume
+          persistentVolumeClaim:
+            claimName: {{ $pvcFullName }}-logs

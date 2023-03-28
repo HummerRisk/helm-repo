@@ -1,4 +1,4 @@
-{{- $pvcFullName := printf "%s-%s" (include "hummerrisk.name" $) "data" }}
+  deployment-hummerrisk.yaml{{- $pvcFullName := printf "%s-%s" (include "hummerrisk.name" $) "data" }}
 {{- $fullName := include "hummerrisk.fullname" . -}}
 apiVersion: apps/v1
 kind: Deployment
@@ -26,7 +26,7 @@ spec:
         #  key: node-role.kubernetes.io/master
       containers:
       - name: hummerrisk
-        image: "{{ .Values.global.imageRegistry }}/hummerrisk/hummerrisk:{{ .Values.hummerrisk.image.tag }}"
+        image: "{{ .Values.global.imageRegistry }}/hummerrisk/auth:{{ .Values.hummerrisk.image.tag }}"
         #imagePullPolicy: IfNotPresent
         imagePullPolicy: {{ .Values.hummerrisk.image.pullPolicy }}
         {{- if .Values.resources }}
@@ -37,7 +37,7 @@ spec:
             command:
               - /bin/sh
               - -ec
-              - curl -fsL http://localhost:8088 > /dev/null
+              - curl -fsL http://localhost:9200/healthz > /dev/null
           failureThreshold: 10
           periodSeconds: 10
           timeoutSeconds: 5
@@ -46,18 +46,10 @@ spec:
             command:
               - /bin/sh
               - -ec
-              - curl -fsL http://localhost:8088 > /dev/null
+              - curl -fsL http://localhost:9200/healthz > /dev/null
         volumeMounts:
-          - name: config-volume
-            mountPath: /opt/hummerrisk/conf
           - name: log-volume
-            mountPath: /opt/hummerrisk/log
-          - name: file-volume
-            mountPath: /opt/hummerrisk/file
-          - name: image-volume
-            mountPath: /opt/hummerrisk/image
-          - name: trivy-db
-            mountPath: /root/.cache/trivy/
+            mountPath: /opt/hummerrisk/logs/hummer-auth
         ports:
           - containerPort: 8088
       volumes:
@@ -68,12 +60,3 @@ spec:
         - name: log-volume
           persistentVolumeClaim:
             claimName: {{ $pvcFullName }}-logs
-        - name: file-volume
-          persistentVolumeClaim:
-            claimName: {{ $pvcFullName }}-file
-        - name: image-volume
-          persistentVolumeClaim:
-            claimName: {{ $pvcFullName }}-image
-        - name: trivy-db
-          persistentVolumeClaim:
-            claimName: {{ $pvcFullName }}-trivy-db
