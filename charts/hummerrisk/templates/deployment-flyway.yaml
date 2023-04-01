@@ -26,7 +26,7 @@ spec:
         #  key: node-role.kubernetes.io/master
       containers:
       - name: hummerrisk
-        image: "{{ .Values.global.imageRegistry }}/hummerrisk/flyway:{{ .Values.hummerrisk.image.tag }}"
+        image: "{{ .Values.global.imageRegistry }}/hummerrisk/hmr-flyway:{{ .Values.hummerrisk.image.tag }}"
         #imagePullPolicy: IfNotPresent
         imagePullPolicy: {{ .Values.hummerrisk.image.pullPolicy }}
         {{- if .Values.resources }}
