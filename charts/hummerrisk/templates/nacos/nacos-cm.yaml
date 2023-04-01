@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nacos-cm
+data:
+  mysql.host: {{ include "db.host" . }}
+  mysql.db.name: "hummer_config"
+  mysql.port: {{ include "db.port" . }}
+  mysql.user: {{ include "db.username" . }}
+  mysql.password: {{ include "db.password" . }}
