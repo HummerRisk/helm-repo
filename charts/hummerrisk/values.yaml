@@ -34,6 +34,15 @@ mysql:
     enabled: true
     accessModes: ReadWriteOnce
 
+redis:
+  enabled: true
+  image: redis
+  imageTag: "6.2.10-alpine"
+  password: "Redis@password123"
+  persistence:
+    enabled: true
+    accessModes: ReadWriteOnce
+
 trivyServer:
   trivyDBVersion: "2023031400"
   servicePort: 4975
@@ -46,6 +55,15 @@ externalMySQL:
   username: root
   password: ""
   database: ""
+
+externalRedis:
+  enabled: false
+  host: redis.local
+  port: 6379
+  password: ""
+
+nacos:
+  host: ""
 
 storage:
   logSize: 20Gi

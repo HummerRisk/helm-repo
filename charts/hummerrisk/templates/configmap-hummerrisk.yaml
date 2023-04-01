@@ -4,7 +4,13 @@ metadata:
   name: hummerrisk-config
   namespace: {{ .Release.Namespace | quote }}
 data:
-  hummerrisk.properties: |
-    spring.datasource.url=jdbc:mysql://{{ include "db.host" . }}:{{ include "db.port" . }}/{{ include "db.database" . }}?autoReconnect=false&useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
-    spring.datasource.username={{ include "db.username" . }}
-    spring.datasource.password={{ include "db.password" . }}
+  hummerrisk.env: |
+    HMR_MYSQL_HOST={{ include "db.host" . }}
+    HMR_MYSQL_PORT={{ include "db.port" . }}
+    HMR_MYSQL_DB={{ include "db.database" . }}
+    HMR_MYSQL_USER={{ include "db.username" . }}
+    HMR_MYSQL_PASSWORD={{ include "db.password" . }}
+    HMR_REDIS_HOST={{ include "redis.host" . }}
+    HMR_REDIS_PORT={{ include "redis.port" . }}
+    HMR_REDIS_PASSWORD={{ include "redis.password" . }}
+    HMR_XXL_JOB_ADDR={{ include "nacos.host" . }}

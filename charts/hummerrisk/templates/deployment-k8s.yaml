@@ -32,6 +32,9 @@ spec:
         {{- if .Values.resources }}
         resources: {{- toYaml .Values.resources | nindent 12 }}
         {{- end }}
+        envFrom:
+          - configMapRef:
+              name: hummerrisk-config
         livenessProbe:
           exec:
             command:
