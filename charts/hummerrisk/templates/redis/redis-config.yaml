@@ -1,0 +1,31 @@
+{{ if .Values.redis.enabled }}
+# Source: mysql/templates/primary/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hummerrisk-redis-config
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app.kubernetes.io/name: mysql
+data:
+  redis.conf: |-
+    daemonize no
+    #bind 127.0.0.1
+      port 6379
+      timeout 300
+      loglevel notice
+      databases 16
+      save 900 1
+      save 300 10
+      save 60 10000
+      dbfilename dump.rdb
+      rdbcompression yes
+      dir /data
+      loglevel warning
+      maxclients 20480
+      maxmemory 2g
+      maxmemory-policy allkeys-lru
+      appendonly no
+      appendfilename "appendonly.aof"
+      appendfsync no
+{{ end }}

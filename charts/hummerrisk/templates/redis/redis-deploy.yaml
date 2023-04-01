@@ -1,0 +1,122 @@
+{{ if .Values.redis.enabled }}
+{{- $pvcFullName := printf "%s-%s" (include "hummerrisk.name" $) "data" }}
+{{- $fullName := include "hummerrisk.fullname" . -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $fullName }}-redis
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app.kubernetes.io/name: redis
+spec:
+  type: ClusterIP
+  clusterIP: None
+  publishNotReadyAddresses: true
+  ports:
+    - name: redis
+      port: 6379
+      targetPort: redis
+  selector:
+    app.kubernetes.io/name: redis
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: hummerrisk-redis
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app.kubernetes.io/name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: redis
+  serviceName: hummerrisk-redis
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: redis
+        app.kubernetes.io/instance: hummerrisk-redis
+    spec:
+      {{- if and .Values.serviceAccount.create }}
+      serviceAccountName: hummerrisk-redis
+      {{- end }}
+      securityContext:
+        fsGroup: 1001
+      containers:
+        - name: redis
+          image: "{{ .Values.global.imageRegistry }}/hummerrisk/redis:{{ .Values.redis.imageTag }}"
+          imagePullPolicy: "IfNotPresent"
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1001
+          env:
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: hummerrisk-redis-password
+                  key: redis-password
+          command: [ "redis-server", "/etc/redis.conf", "--requirepass", "$REDIS_PASSWORD" ]
+          ports:
+            - name: redis
+              containerPort: 6379
+          livenessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+            exec:
+              command:
+                - /bin/bash
+                - -ec
+                - |
+                  redis-cli -h $HMR_REDIS_HOST -p $HMR_REDIS_PORT -a $HMR_REDIS_PASSWORD ping
+          readinessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+            exec:
+              command:
+                - /bin/bash
+                - -ec
+                - |
+                  redis-cli -h $HMR_REDIS_HOST -p $HMR_REDIS_PORT -a $HMR_REDIS_PASSWORD ping
+          startupProbe:
+            failureThreshold: 10
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+            exec:
+              command:
+                - /bin/bash
+                - -ec
+                - |
+                  redis-cli -h $HMR_REDIS_HOST -p $HMR_REDIS_PORT -a $HMR_REDIS_PASSWORD ping
+          resources:
+            limits: { }
+            requests: { }
+          volumeMounts:
+            - name: redis-data
+              mountPath: /data
+            - name: redis-config
+              mountPath: /etc/redis.conf
+              subPath: my.cnf
+      volumes:
+        - name: redis-config
+          configMap:
+            defaultMode: 420
+            name: hummerrisk-redis-config
+        - name: redis-data
+          {{if .Values.redis.persistence.enabled}}
+          persistentVolumeClaim:
+            claimName: {{ $pvcFullName }}-redis
+          {{ else }}
+          emptyDir: { }
+          {{ end }}
+{{end}}

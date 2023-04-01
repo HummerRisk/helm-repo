@@ -1,0 +1,19 @@
+{{ if .Values.redis.enabled }}
+{{- $pvcFullName := printf "%s-%s" (include "hummerrisk.name" $) "data" }}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ $pvcFullName }}-redis
+  namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    volume.beta.kubernetes.io/storage-class: {{ .Values.global.storageClass |quote }}
+spec:
+  storageClassName: {{ .Values.global.storageClass |quote }}
+  accessModes:
+    {{- range .Values.storage.accessModes }}
+    - {{ . | quote }}
+    {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.storage.dbSize |quote }}
+{{end}}
