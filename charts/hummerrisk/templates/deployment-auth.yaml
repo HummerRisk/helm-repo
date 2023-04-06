@@ -1,4 +1,4 @@
-  deployment-hummerrisk.yaml{{- $pvcFullName := printf "%s-%s" (include "hummerrisk.name" $) "data" }}
+{{- $pvcFullName := printf "%s-%s" (include "hummerrisk.name" $) "data" }}
 {{- $fullName := include "hummerrisk.fullname" . -}}
 apiVersion: apps/v1
 kind: Deployment
@@ -34,7 +34,10 @@ spec:
         {{- end }}
         envFrom:
           - configMapRef:
-            name: hummerrisk-config
+              name: hummerrisk-config
+        env:
+          - name: JAVA_OPTIONS
+            value: "-Dfile.encoding=utf-8 -Djava.awt.headless=true -DHMR_NACOS_SERVER_ADDR={{ include "nacos.host" . }}"
         livenessProbe:
           exec:
             command:

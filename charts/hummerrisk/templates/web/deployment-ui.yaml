@@ -1,4 +1,4 @@
-  deployment-hummerrisk.yaml{{- $pvcFullName := printf "%s-%s" (include "hummerrisk.name" $) "data" }}
+{{- $pvcFullName := printf "%s-%s" (include "hummerrisk.name" $) "data" }}
 {{- $fullName := include "hummerrisk.fullname" . -}}
 apiVersion: apps/v1
 kind: Deployment
@@ -26,7 +26,7 @@ spec:
         #  key: node-role.kubernetes.io/master
       containers:
       - name: hummerrisk
-        image: "{{ .Values.global.imageRegistry }}/hummerrisk/ui:{{ .Values.hummerrisk.image.tag }}"
+        image: "{{ .Values.global.imageRegistry }}/hummerrisk/hmr-ui:{{ .Values.hummerrisk.image.tag }}"
         #imagePullPolicy: IfNotPresent
         imagePullPolicy: {{ .Values.hummerrisk.image.pullPolicy }}
         {{- if .Values.resources }}

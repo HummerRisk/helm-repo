@@ -35,6 +35,9 @@ spec:
         envFrom:
           - configMapRef:
               name: hummerrisk-config
+        env:
+          - name: JAVA_OPTIONS
+            value: "-Dfile.encoding=utf-8 -Djava.awt.headless=true -DHMR_NACOS_SERVER_ADDR={{ include "nacos.host" . }}"
         livenessProbe:
           exec:
             command:

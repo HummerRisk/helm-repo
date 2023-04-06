@@ -75,10 +75,13 @@ define a random password
 {{- end }}
 
 
+
+{{/* nacos config*/}}
+
 {{- define "nacos.host" -}}
 {{- if .Values.nacos.host }}
-{{- default "hummerrisk-nacos" .Values.externalMySQL.database }}
+{{- default "hummerrisk-nacos-headless" .Values.nacos.host }}
 {{- else }}
-{{- include "hummerrisk.fullname" . }}-nacos
+{{- include "hummerrisk.fullname" . }}-nacos-headless
 {{- end }}
 {{- end }}

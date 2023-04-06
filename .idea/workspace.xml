@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="aa5e898d-9f97-47be-851f-2d7b357ba8ec" name="变更" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/_mysql.tpl" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/_mysql.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/configmap-hummerrisk.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/configmap-hummerrisk.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/Chart.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/Chart.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/_mysql.tpl" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/_hummerrisk.tpl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-auth.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-auth.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-cloud.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-cloud.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-flyway.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-flyway.yaml" afterDir="false" />
@@ -16,10 +16,12 @@
       <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-k8s.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-k8s.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-monitor.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-monitor.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-system.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-system.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-tivy-server.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-tivy-server.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/nacos/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/nacos/configmap-nacos-config.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/values.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/mysql/configmap-init.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/mysql/configmap-mysql.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/mysql/configmap-mysql.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/nacos/nacos-service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/nacos/nacos-service.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/web/configmap-web-config" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/web/configmap-web-config.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/web/deployment-ui.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/web/deployment-ui.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/deploy.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,23 +48,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.format.on.save.advertiser.fired": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "go.import.settings.migrated": "true",
-    "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "/Users/lxh/workspace/hummer/helm/helm-repo/charts/hummerrisk/templates/redis",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.format.on.save.advertiser.fired&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/lxh/workspace/hummer/helm/helm-repo/charts/hummerrisk/templates/redis&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/charts/hummerrisk/templates/redis" />
@@ -98,7 +101,10 @@
     <MESSAGE value="feat(init): 初始化微服务项目" />
     <MESSAGE value="feat(redis): 添加redis组件" />
     <MESSAGE value="feat(nacos): 添加 nacos 组件" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(nacos): 添加 nacos 组件" />
+    <MESSAGE value="feat(env): 挂载数据库变量配置" />
+    <MESSAGE value="feat(image): 更新 image" />
+    <MESSAGE value="feat(init): 增加 flyway作为initContainer" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(init): 增加 flyway作为initContainer" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
