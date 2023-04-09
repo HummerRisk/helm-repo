@@ -6,20 +6,20 @@ metadata:
   annotations:
     owner: hummercloud-{{ .Release.Namespace }}
   labels:
-    app: hummerrisk
-  name: hummerrisk
+    app: hummerrisk-system
+  name: hummerrisk-system
   namespace: {{ .Release.Namespace | quote }}
 spec:
   replicas: {{ .Values.hummerrisk.replicas }}
   selector:
     matchLabels:
-      app: hummerrisk
+      app: hummerrisk-system
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: hummerrisk
+        app: hummerrisk-system
     spec:
       #tolerations:
         #- effect: NoSchedule
@@ -57,12 +57,10 @@ spec:
           - name: log-volume
             mountPath: /opt/hummerrisk/logs/hummer-system
         ports:
-          - containerPort: 8088
+          - containerPort: 9300
+          - containerPort: 9301
+          - containerPort: 8001
       volumes:
-        - name: config-volume
-          configMap:
-            name: hummerrisk-config
-            optional: true
         - name: log-volume
           persistentVolumeClaim:
             claimName: {{ $pvcFullName }}-logs

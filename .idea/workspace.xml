@@ -4,24 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa5e898d-9f97-47be-851f-2d7b357ba8ec" name="变更" comment="">
+    <list default="true" id="aa5e898d-9f97-47be-851f-2d7b357ba8ec" name="变更" comment="feat(chart): 天假">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/Chart.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/Chart.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/_mysql.tpl" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/_hummerrisk.tpl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/_hummerrisk.tpl" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/_hummerrisk.tpl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/configmap-hummerrisk.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/configmap-hummerrisk.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-auth.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-auth.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-cloud.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-cloud.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-flyway.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-flyway.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-gateway.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-gateway.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-jobs.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-jobs.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-jobs.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-job.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-k8s.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-k8s.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-monitor.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-monitor.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-system.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/deployment-system.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/mysql/configmap-init.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/mysql/configmap-mysql.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/mysql/configmap-mysql.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/nacos/nacos-service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/nacos/nacos-service.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/web/configmap-web-config" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/web/configmap-web-config.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/nacos/nacos-cm.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/nacos/nacos-cm.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/charts/hummerrisk/templates/web/deployment-ui.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/templates/web/deployment-ui.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/deploy.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/charts/hummerrisk/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/charts/hummerrisk/values.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/index.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +103,9 @@
     <MESSAGE value="feat(env): 挂载数据库变量配置" />
     <MESSAGE value="feat(image): 更新 image" />
     <MESSAGE value="feat(init): 增加 flyway作为initContainer" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(init): 增加 flyway作为initContainer" />
+    <MESSAGE value="feat(env): 挂载env，修改相关配置文件" />
+    <MESSAGE value="feat(MySQL): 天假init sql" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(MySQL): 天假init sql" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

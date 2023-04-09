@@ -6,26 +6,26 @@ metadata:
   annotations:
     owner: hummercloud-{{ .Release.Namespace }}
   labels:
-    app: hummerrisk
-  name: hummerrisk
+    app: hummerrisk-gateway
+  name: hummerrisk-gateway
   namespace: {{ .Release.Namespace | quote }}
 spec:
   replicas: {{ .Values.hummerrisk.replicas }}
   selector:
     matchLabels:
-      app: hummerrisk
+      app: hummerrisk-gateway
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: hummerrisk
+        app: hummerrisk-gateway
     spec:
       #tolerations:
         #- effect: NoSchedule
         #  key: node-role.kubernetes.io/master
       containers:
-      - name: hummerrisk
+      - name: hummerrisk-gateway
         image: "{{ .Values.global.imageRegistry }}/hummerrisk/hmr-gateway:{{ .Values.hummerrisk.image.tag }}"
         #imagePullPolicy: IfNotPresent
         imagePullPolicy: {{ .Values.hummerrisk.image.pullPolicy }}
@@ -57,7 +57,7 @@ spec:
           - name: log-volume
             mountPath: /opt/hummerrisk/log
         ports:
-          - containerPort: 8088
+          - containerPort: 8080
       volumes:
         - name: log-volume
           persistentVolumeClaim:

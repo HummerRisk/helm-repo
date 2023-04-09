@@ -7,25 +7,25 @@ metadata:
     owner: hummercloud-{{ .Release.Namespace }}
   labels:
     app: hummerrisk
-  name: hummerrisk
+  name: hummerrisk-flyway
   namespace: {{ .Release.Namespace | quote }}
 spec:
   replicas: {{ .Values.hummerrisk.replicas }}
   selector:
     matchLabels:
-      app: hummerrisk
+      app: hummerrisk-flyway
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: hummerrisk
+        app: hummerrisk-flyway
     spec:
       #tolerations:
         #- effect: NoSchedule
         #  key: node-role.kubernetes.io/master
       containers:
-      - name: hummerrisk
+      - name: hummerrisk-flyway
         image: "{{ .Values.global.imageRegistry }}/hummerrisk/hmr-flyway:{{ .Values.hummerrisk.image.tag }}"
         #imagePullPolicy: IfNotPresent
         imagePullPolicy: {{ .Values.hummerrisk.image.pullPolicy }}
@@ -54,32 +54,11 @@ spec:
               - -ec
               - curl -fsL http://localhost:9000/healthz > /dev/null
         volumeMounts:
-          - name: config-volume
-            mountPath: /opt/hummerrisk/conf
           - name: log-volume
             mountPath: /opt/hummerrisk/log
-          - name: file-volume
-            mountPath: /opt/hummerrisk/file
-          - name: image-volume
-            mountPath: /opt/hummerrisk/image
-          - name: trivy-db
-            mountPath: /root/.cache/trivy/
         ports:
-          - containerPort: 8088
+          - containerPort: 9000
       volumes:
-        - name: config-volume
-          configMap:
-            name: hummerrisk-config
-            optional: true
         - name: log-volume
           persistentVolumeClaim:
             claimName: {{ $pvcFullName }}-logs
-        - name: file-volume
-          persistentVolumeClaim:
-            claimName: {{ $pvcFullName }}-file
-        - name: image-volume
-          persistentVolumeClaim:
-            claimName: {{ $pvcFullName }}-image
-        - name: trivy-db
-          persistentVolumeClaim:
-            claimName: {{ $pvcFullName }}-trivy-db

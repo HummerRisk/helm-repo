@@ -6,26 +6,26 @@ metadata:
   annotations:
     owner: hummercloud-{{ .Release.Namespace }}
   labels:
-    app: hummerrisk
-  name: hummerrisk
+    app: hummerrisk-k8s
+  name: hummerrisk-k8s
   namespace: {{ .Release.Namespace | quote }}
 spec:
   replicas: {{ .Values.hummerrisk.replicas }}
   selector:
     matchLabels:
-      app: hummerrisk
+      app: hummerrisk-k8s
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: hummerrisk
+        app: hummerrisk-k8s
     spec:
       #tolerations:
         #- effect: NoSchedule
         #  key: node-role.kubernetes.io/master
       containers:
-      - name: hummerrisk
+      - name: hummerrisk-k8s
         image: "{{ .Values.global.imageRegistry }}/hummerrisk/hmr-k8s:{{ .Values.hummerrisk.image.tag }}"
         #imagePullPolicy: IfNotPresent
         imagePullPolicy: {{ .Values.hummerrisk.image.pullPolicy }}
@@ -54,23 +54,13 @@ spec:
               - -ec
               - curl -fsL http://localhost:9500/healthz > /dev/null
         volumeMounts:
-          - name: config-volume
-            mountPath: /opt/hummerrisk/conf
           - name: log-volume
             mountPath: /opt/hummerrisk/log
-          - name: file-volume
-            mountPath: /opt/hummerrisk/file
-          - name: image-volume
-            mountPath: /opt/hummerrisk/image
-          - name: trivy-db
-            mountPath: /root/.cache/trivy/
         ports:
-          - containerPort: 8088
+          - containerPort: 9500
+          - containerPort: 9501
+          - containerPort: 8003
       volumes:
-        - name: config-volume
-          configMap:
-            name: hummerrisk-config
-            optional: true
         - name: log-volume
           persistentVolumeClaim:
             claimName: {{ $pvcFullName }}-logs

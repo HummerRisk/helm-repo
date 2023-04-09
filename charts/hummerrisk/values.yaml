@@ -51,7 +51,7 @@ trivyServer:
 externalMySQL:
   enabled: false
   host: mysql.local
-  port: 3306
+  port: '3306'
   username: root
   password: ""
   database: ""
@@ -59,7 +59,7 @@ externalMySQL:
 externalRedis:
   enabled: false
   host: redis.local
-  port: 6379
+  port: '6379'
   password: ""
 
 nacos:

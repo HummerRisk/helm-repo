@@ -7,19 +7,19 @@ metadata:
     owner: hummercloud-{{ .Release.Namespace }}
   labels:
     app: hummerrisk
-  name: hummerrisk
+  name: hummerrisk-auth
   namespace: {{ .Release.Namespace | quote }}
 spec:
   replicas: {{ .Values.hummerrisk.replicas }}
   selector:
     matchLabels:
-      app: hummerrisk
+      app: hummerrisk-auth
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: hummerrisk
+        app: hummerrisk-auth
     spec:
       #tolerations:
         #- effect: NoSchedule
@@ -57,7 +57,7 @@ spec:
           - name: log-volume
             mountPath: /opt/hummerrisk/logs/hummer-auth
         ports:
-          - containerPort: 8088
+          - containerPort: 9200
       volumes:
         - name: config-volume
           configMap:

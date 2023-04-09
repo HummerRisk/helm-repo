@@ -16,7 +16,7 @@ MYSQL config
 {{- else }}
 {{- include "hummerrisk.fullname" . }}-mysql
 {{- end }}
-{{- end }}
+{{- end }}h
 
 {{- define "db.username" -}}
 {{- if .Values.externalMySQL.enabled }}

@@ -6,11 +6,11 @@ metadata:
 data:
   hummerrisk.env: |
     HMR_MYSQL_HOST={{ include "db.host" . }}
-    HMR_MYSQL_PORT={{ include "db.port" . }}
+    HMR_MYSQL_PORT={{ include "db.port" . | quote  }}
     HMR_MYSQL_DB={{ include "db.database" . }}
     HMR_MYSQL_USER={{ include "db.username" . }}
     HMR_MYSQL_PASSWORD={{ include "db.password" . }}
     HMR_REDIS_HOST={{ include "redis.host" . }}
-    HMR_REDIS_PORT={{ include "redis.port" . }}
+    HMR_REDIS_PORT={{ include "redis.port" . | quote }}
     HMR_REDIS_PASSWORD={{ include "redis.password" . }}
     HMR_XXL_JOB_ADDR={{ include "nacos.host" . }}
