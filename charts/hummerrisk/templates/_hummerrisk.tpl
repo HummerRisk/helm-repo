@@ -85,3 +85,11 @@ define a random password
 {{- include "hummerrisk.fullname" . }}-nacos-headless
 {{- end }}
 {{- end }}
+
+{{- define "nacos.db" -}}
+{{- if .Values.nacos.host }}
+{{- default "hummer_config" .Values.nacos.host }}
+{{- else }}
+{{- default "hummer_config" }}
+{{- end }}
+{{- end }}

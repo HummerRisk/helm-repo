@@ -18,7 +18,7 @@ hummerrisk:
   image:
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: v1.0.0
+    tag: dev
   replicas: 1
   # servicePort is the HTTP listener port for the webserver
   servicePort: 80
@@ -64,15 +64,16 @@ externalRedis:
 
 nacos:
   host: ""
+  db: "hummer_config"
 
 storage:
-  logSize: 20Gi
+  logSize: 10Gi
   imageSize: 30Gi
   fileSize: 10Gi
-  dbSize: 50Gi
-  trivySize: 30Gi
+  dbSize: 30Gi
+  trivySize: 10Gi
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -128,7 +129,7 @@ resources:
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   limits:
    cpu: 2
-   memory: 4Gi
+   memory: "4Gi"
   requests:
-   cpu: 500m
-   memory: 1Gi
+   cpu: "100m"
+   memory: "500M"

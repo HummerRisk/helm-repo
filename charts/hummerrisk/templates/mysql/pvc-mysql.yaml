@@ -6,7 +6,7 @@ metadata:
   name: {{ $pvcFullName }}-mysql
   namespace: {{ .Release.Namespace | quote }}
   annotations:
-    volume.beta.kubernetes.io/storage-class: {{ .Values.global.storageClass |quote }}
+    volume.beta.kubernetes.io/storage-class: {{ .Values.global.storageClass | quote }}
 spec:
   storageClassName: {{ .Values.global.storageClass |quote }}
   accessModes:
@@ -15,5 +15,5 @@ spec:
     {{- end }}
   resources:
     requests:
-      storage: {{ .Values.storage.dbSize |quote }}
+      storage: {{ .Values.storage.dbSize | quote }}
 {{end}}
