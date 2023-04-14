@@ -53,9 +53,6 @@ spec:
               - /bin/sh
               - -ec
               - curl -fsL http://localhost:9200/healthz > /dev/null
-        volumeMounts:
-          - name: log-volume
-            mountPath: /opt/hummerrisk/logs/hummer-auth
         ports:
           - containerPort: 9200
       volumes:
@@ -63,6 +60,3 @@ spec:
           configMap:
             name: hummerrisk-config
             optional: true
-        - name: log-volume
-          persistentVolumeClaim:
-            claimName: {{ $pvcFullName }}-logs

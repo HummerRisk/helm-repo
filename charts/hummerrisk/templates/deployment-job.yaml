@@ -53,12 +53,5 @@ spec:
               - /bin/sh
               - -ec
               - curl -fsL http://localhost:8084/xxl-job-admin/healthz > /dev/null
-        volumeMounts:
-          - name: log-volume
-            mountPath: /opt/hummerrisk/log
         ports:
           - containerPort: 8084
-      volumes:
-        - name: log-volume
-          persistentVolumeClaim:
-            claimName: {{ $pvcFullName }}-logs

@@ -53,14 +53,20 @@ spec:
               - /bin/sh
               - -ec
               - curl -fsL http://localhost:9500/healthz > /dev/null
-        volumeMounts:
-          - name: log-volume
-            mountPath: /opt/hummerrisk/log
         ports:
           - containerPort: 9500
           - containerPort: 9501
           - containerPort: 8003
+        volumeMounts:
+          - mountPath: /opt/hummerrisk/file
+            name: data-file
+        volumeMounts:
+          - mountPath: /opt/hummerrisk/image
+            name: data-image
       volumes:
-        - name: log-volume
+        - name: data-file
           persistentVolumeClaim:
-            claimName: {{ $pvcFullName }}-logs
+            claimName: {{ $pvcFullName }}-file
+        - name: data-image
+          persistentVolumeClaim:
+            claimName: {{ $pvcFullName }}-image

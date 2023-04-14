@@ -18,7 +18,7 @@ hummerrisk:
   image:
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: dev
+    tag: v1.0.0
   replicas: 1
   # servicePort is the HTTP listener port for the webserver
   servicePort: 80
@@ -28,7 +28,7 @@ hummerrisk:
 mysql:
   enabled: true
   image: mysql
-  imageTag: "5.7.38"
+  imageTag: "8.0.32"
   rootPassword: "Hummer@password123"
   persistence:
     enabled: true
@@ -44,7 +44,7 @@ redis:
     accessModes: ReadWriteOnce
 
 trivyServer:
-  trivyDBVersion: "2023031400"
+  trivyDBVersion: "20230410"
   servicePort: 4975
   serviceType: ClusterIP
 

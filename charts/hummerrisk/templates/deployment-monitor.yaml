@@ -53,12 +53,5 @@ spec:
               - /bin/sh
               - -ec
               - curl -fsL http://localhost:9100/actuator/health > /dev/null
-        volumeMounts:
-          - name: log-volume
-            mountPath: /opt/hummerrisk/log
         ports:
           - containerPort: 9100
-      volumes:
-        - name: log-volume
-          persistentVolumeClaim:
-            claimName: {{ $pvcFullName }}-logs

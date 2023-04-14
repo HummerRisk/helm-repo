@@ -20,10 +20,11 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: {{ $pvcFullName }}-image
+  namespace: {{ .Release.Namespace | quote }}
   annotations:
     volume.beta.kubernetes.io/storage-class: {{ .Values.global.storageClass }}
 spec:
-  storageClassName: "nfs"
+  storageClassName: "{{ .Values.global.storageClass }}"
   accessModes:
     {{- range .Values.storage.accessModes }}
     - {{ . | quote }}
@@ -36,6 +37,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: {{ $pvcFullName }}-file
+  namespace: {{ .Release.Namespace | quote }}
   annotations:
     volume.beta.kubernetes.io/storage-class: {{ .Values.global.storageClass }}
 spec:
@@ -52,6 +54,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: {{ $pvcFullName }}-trivy-db
+  namespace: {{ .Release.Namespace | quote }}
   annotations:
     volume.beta.kubernetes.io/storage-class: {{ .Values.global.storageClass }}
 spec:

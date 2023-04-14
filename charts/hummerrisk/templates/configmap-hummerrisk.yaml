@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: hummerrisk-config-bak
+  name: hummerrisk-config
   namespace: {{ .Release.Namespace | quote }}
 data:
-  hummerrisk.env: |
-    HMR_MYSQL_HOST={{ include "db.host" . | quote }}
-    HMR_MYSQL_PORT={{ include "db.port" . | quote  }}
-    HMR_MYSQL_DB={{ include "db.database" . | quote }}
-    HMR_MYSQL_USER={{ include "db.username" . | quote }}
-    HMR_MYSQL_PASSWORD={{ include "db.password" . | quote }}
-    HMR_REDIS_HOST={{ include "redis.host" . | quote }}
-    HMR_REDIS_PORT={{ include "redis.port" . | quote }}
-    HMR_REDIS_PASSWORD={{ include "redis.password" . | quote }}
-    HMR_XXL_JOB_ADDR={{ include "nacos.host" . | quote }}
+  HMR_MYSQL_HOST: {{ include "db.host" . | quote }}
+  HMR_MYSQL_PORT: {{ include "db.port" . | quote  }}
+  HMR_MYSQL_DB: {{ include "db.database" . | quote }}
+  HMR_MYSQL_USER: {{ include "db.username" . | quote }}
+  HMR_MYSQL_PASSWORD: {{ include "db.password" . | quote }}
+  HMR_MYSQL_DB_NACOS: {{ include "nacos.db" . | quote }}
+  HMR_REDIS_HOST: {{ include "redis.host" . | quote }}
+  HMR_REDIS_PORT: {{ include "redis.port" . | quote }}
+  HMR_REDIS_PASSWORD: {{ include "redis.password" . | quote }}
+  HMR_XXL_JOB_ADDR: {{ include "nacos.host" . | quote }}

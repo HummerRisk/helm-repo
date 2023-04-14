@@ -52,8 +52,6 @@ spec:
           securityContext:
             runAsNonRoot: true
             runAsUser: 1001
-          args:
-            - "--ignore-db-dir=lost+found"
           env:
             - name: BITNAMI_DEBUG
               value: "false"

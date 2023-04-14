@@ -37,7 +37,7 @@ spec:
               name: hummerrisk-config
         env:
           - name: JAVA_OPTIONS
-            value: "-Dfile.encoding=utf-8 -Djava.awt.headless=true -DHMR_NACOS_SERVER_ADDR={{ include "nacos.host" . }}"
+            value: "-Dfile.encoding=utf-8 -Djava.awt.headless=true -DHMR_MYSQL_HOST={{ include "db.host" . }} -DHMR_MYSQL_PORT={{ include "db.port" . }} -DHMR_MYSQL_DB_NACOS={{ include "nacos.db" . }} -DHMR_MYSQL_USER={{ include "db.username" . }} -DHMR_MYSQL_PASSWORD={{ include "db.password" . }}"
         livenessProbe:
           exec:
             command:
@@ -53,12 +53,5 @@ spec:
               - /bin/sh
               - -ec
               - curl -fsL http://localhost:9000/healthz > /dev/null
-        volumeMounts:
-          - name: log-volume
-            mountPath: /opt/hummerrisk/log
         ports:
           - containerPort: 9000
-      volumes:
-        - name: log-volume
-          persistentVolumeClaim:
-            claimName: {{ $pvcFullName }}-logs
