@@ -1,16 +1,35 @@
+{{- $fullName := include "hummerrisk.fullname" . -}}
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: hummerrisk
-  name: hummerrisk-web
+    app: hummerrisk-ui
+  name: hummerrisk-ui
   namespace: {{ .Release.Namespace | quote }}
 spec:
   ports:
-    - name: "hummerrisk-web"
+    - name: "hummerrisk-ui"
       port:  {{ .Values.hummerrisk.servicePort }}
       targetPort: 8088
   selector:
-    app: hummerrisk
+    app: hummerrisk-ui
   type: {{ .Values.hummerrisk.serviceType }}
   sessionAffinity: {{ .Values.hummerrisk.sessionAffinity }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $fullName }}-gateway
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: hummerrisk-gateway
+spec:
+  type: ClusterIP
+  clusterIP: None
+  publishNotReadyAddresses: true
+  ports:
+    - name: hummerrisk-gateway
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: hummerrisk-gateway

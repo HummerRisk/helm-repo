@@ -28,7 +28,7 @@ spec:
       - name: hummerrisk
         image: "{{ .Values.global.imageRegistry }}/hummerrisk/hmr-ui:{{ .Values.hummerrisk.image.tag }}"
         #imagePullPolicy: IfNotPresent
-        imagePullPolicy: {{ .Values.hummerrisk.image.pullPolicy }}
+        imagePullPolicy: {{ .Values.global.imagePullPolicy }}
         {{- if .Values.resources }}
         resources: {{- toYaml .Values.resources | nindent 12 }}
         {{- end }}
@@ -49,12 +49,11 @@ spec:
               - curl -fsL http://localhost:80 > /dev/null
         volumeMounts:
           - name: config-volume
-            mountPath: /etc/nginx/conf.d/default.conf
-            subPath: default.conf
+            mountPath: /etc/nginx/conf.d/
           - name: log-volume
-            mountPath: /opt/hummerrisk/log
+            mountPath: /var/log/nginx/
         ports:
-          - containerPort: 8088
+          - containerPort: 80
       volumes:
         - name: config-volume
           configMap:

@@ -70,7 +70,7 @@ spec:
             timeoutSeconds: 1
             exec:
               command:
-                - /bin/bash
+                - /bin/sh
                 - -ec
                 - |
                   redis-cli -h $HMR_REDIS_HOST -p $HMR_REDIS_PORT -a $HMR_REDIS_PASSWORD ping
@@ -82,7 +82,7 @@ spec:
             timeoutSeconds: 1
             exec:
               command:
-                - /bin/bash
+                - /bin/sh
                 - -ec
                 - |
                   redis-cli -h $HMR_REDIS_HOST -p $HMR_REDIS_PORT -a $HMR_REDIS_PASSWORD ping
@@ -94,7 +94,7 @@ spec:
             timeoutSeconds: 1
             exec:
               command:
-                - /bin/bash
+                - /bin/sh
                 - -ec
                 - |
                   redis-cli -h $HMR_REDIS_HOST -p $HMR_REDIS_PORT -a $HMR_REDIS_PASSWORD ping
@@ -106,7 +106,7 @@ spec:
               mountPath: /data
             - name: redis-config
               mountPath: /etc/redis.conf
-              subPath: my.cnf
+              subPath: redis.conf
       volumes:
         - name: redis-config
           configMap:

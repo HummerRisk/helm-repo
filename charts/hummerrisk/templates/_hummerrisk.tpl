@@ -39,9 +39,9 @@ define a random password
 
 {{- define "db.database" -}}
 {{- if .Values.externalMySQL.enabled }}
-{{- default "humme_rrisk" .Values.externalMySQL.database }}
+{{- default "hummer_risk" .Values.externalMySQL.database }}
 {{- else }}
-{{- default "humme_rrisk" }}
+{{- default "hummer_risk" }}
 {{- end }}
 {{- end }}
 

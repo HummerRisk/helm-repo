@@ -28,7 +28,7 @@ spec:
       - name: hummerrisk
         image: "{{ .Values.global.imageRegistry }}/hummerrisk/hmr-cloud:{{ .Values.hummerrisk.image.tag }}"
         #imagePullPolicy: IfNotPresent
-        imagePullPolicy: {{ .Values.hummerrisk.image.pullPolicy }}
+        imagePullPolicy: {{ .Values.global.imagePullPolicy }}
         {{- if .Values.resources }}
         resources: {{- toYaml .Values.resources | nindent 12 }}
         {{- end }}
@@ -39,20 +39,27 @@ spec:
           - name: JAVA_OPTIONS
             value: "-Dfile.encoding=utf-8 -Djava.awt.headless=true -DHMR_NACOS_SERVER_ADDR={{ include "nacos.host" . }}"
         livenessProbe:
-          exec:
-            command:
-              - /bin/sh
-              - -ec
-              - curl -fsL http://localhost:9400/healthz > /dev/null
-          failureThreshold: 10
+          httpGet:
+            path: /healthz
+            port: 9400
+          initialDelaySeconds: 5
           periodSeconds: 10
-          timeoutSeconds: 5
         readinessProbe:
-          exec:
-            command:
-              - /bin/sh
-              - -ec
-              - curl -fsL http://localhost:9400/healthz > /dev/null
+          httpGet:
+            path: /healthz
+            port: 9400
+          initialDelaySeconds: 3
+          periodSeconds: 5
+          timeoutSeconds: 1
+        startupProbe:
+          httpGet:
+            path: /healthz
+            port: 9400
+          failureThreshold: 10
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
         ports:
           - containerPort: 9400
           - containerPort: 9401
