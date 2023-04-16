@@ -80,7 +80,7 @@ define a random password
 
 {{- define "nacos.host" -}}
 {{- if .Values.nacos.host }}
-{{- default "hummerrisk-nacos-headless" .Values.nacos.host }}
+{{- required "A valid .Values.nacos.host entry required!" .Values.nacos.host }}
 {{- else }}
 {{- include "hummerrisk.fullname" . }}-nacos-headless
 {{- end }}
