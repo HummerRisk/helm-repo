@@ -58,7 +58,7 @@ spec:
                 secretKeyRef:
                   name: hummerrisk-redis-password
                   key: redis-password
-          command: [ "redis-server", "/etc/redis.conf", "--requirepass", "$REDIS_PASSWORD" ]
+          command: [ "redis-server", "/etc/redis.conf", "--requirepass", "{{ include "redis.password" . }}" ]
           ports:
             - name: redis
               containerPort: 6379
@@ -73,7 +73,7 @@ spec:
                 - /bin/sh
                 - -ec
                 - |
-                  redis-cli -h $HMR_REDIS_HOST -p $HMR_REDIS_PORT -a $HMR_REDIS_PASSWORD ping
+                  redis-cli -h {{ include "redis.host" . }} -p {{ include "redis.port" . }} -a {{ include "redis.password" . }} ping
           readinessProbe:
             failureThreshold: 3
             initialDelaySeconds: 5
@@ -85,7 +85,7 @@ spec:
                 - /bin/sh
                 - -ec
                 - |
-                  redis-cli -h $HMR_REDIS_HOST -p $HMR_REDIS_PORT -a $HMR_REDIS_PASSWORD ping
+                  redis-cli -h {{ include "redis.host" . }} -p {{ include "redis.port" . }} -a {{ include "redis.password" . }} ping
           startupProbe:
             failureThreshold: 10
             initialDelaySeconds: 15
@@ -97,10 +97,10 @@ spec:
                 - /bin/sh
                 - -ec
                 - |
-                  redis-cli -h $HMR_REDIS_HOST -p $HMR_REDIS_PORT -a $HMR_REDIS_PASSWORD ping
-          resources:
-            limits: { }
-            requests: { }
+                  redis-cli -h {{ include "redis.host" . }} -p {{ include "redis.port" . }} -a {{ include "redis.password" . }} ping
+          {{- if .Values.resources }}
+          resources: {{- toYaml .Values.resources | nindent 12 }}
+          {{- end }}
           volumeMounts:
             - name: redis-data
               mountPath: /data
