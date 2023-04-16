@@ -25,7 +25,7 @@ spec:
         #- effect: NoSchedule
         #  key: node-role.kubernetes.io/master
       containers:
-      - name: hummerrisk
+      - name: hummerrisk-cloud
         image: "{{ .Values.global.imageRegistry }}/hummerrisk/hmr-cloud:{{ .Values.hummerrisk.image.tag }}"
         #imagePullPolicy: IfNotPresent
         imagePullPolicy: {{ .Values.global.imagePullPolicy }}
