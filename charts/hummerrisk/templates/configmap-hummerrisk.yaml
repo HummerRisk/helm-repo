@@ -13,4 +13,4 @@ data:
   HMR_REDIS_HOST: {{ include "redis.host" . | quote }}
   HMR_REDIS_PORT: {{ include "redis.port" . | quote }}
   HMR_REDIS_PASSWORD: {{ include "redis.password" . | quote }}
-  HMR_XXL_JOB_ADDR: {{ include "nacos.host" . | quote }}
+  HMR_XXL_JOB_ADDR: {{ include "hummerrisk.fullname" . }}-job
