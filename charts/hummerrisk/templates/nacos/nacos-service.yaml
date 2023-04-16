@@ -17,5 +17,6 @@ spec:
     - port: 9849
       name: raft-rpc
       targetPort: 9849
+  sessionAffinity: {{ .Values.hummerrisk.sessionAffinity }}
   selector:
     app: nacos
