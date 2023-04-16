@@ -65,15 +65,9 @@ spec:
           - containerPort: 9501
           - containerPort: 8003
         volumeMounts:
-          - mountPath: /opt/hummerrisk/file
-            name: data-file
-        volumeMounts:
-          - mountPath: /opt/hummerrisk/image
-            name: data-image
+          - mountPath: /opt/hummerrisk/
+            name: data-k8s
       volumes:
-        - name: data-file
+        - name: data-k8s
           persistentVolumeClaim:
-            claimName: {{ $pvcFullName }}-file
-        - name: data-image
-          persistentVolumeClaim:
-            claimName: {{ $pvcFullName }}-image
+            claimName: {{ $pvcFullName }}-k8s
