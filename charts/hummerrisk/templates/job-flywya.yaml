@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: hummerrisk-flyway
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      terminationGracePeriodSeconds: 60
+      containers:
+        - name: flyway
+          image: "{{ .Values.global.imageRegistry }}/hummerrisk/hmr-flyway:{{ .Values.hummerrisk.image.tag }}"
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 9000
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            timeoutSeconds: 1
+          envFrom:
+            - configMapRef:
+                name: hummerrisk-config
+          env:
+            - name: JAVA_OPTIONS
+              value: "-Dfile.encoding=utf-8 -Djava.awt.headless=true -DHMR_MYSQL_HOST={{ include "db.host" . }} -DHMR_MYSQL_PORT={{ include "db.port" . }} -DHMR_MYSQL_DB_NACOS={{ include "nacos.db" . }} -DHMR_MYSQL_USER={{ include "db.username" . }} -DHMR_MYSQL_PASSWORD={{ include "db.password" . }}"
+  backoffLimit: 4
+  activeDeadlineSeconds: 600
+  ttlSecondsAfterFinished: 100
