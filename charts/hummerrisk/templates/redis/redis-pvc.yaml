@@ -7,6 +7,7 @@ metadata:
   namespace: {{ .Release.Namespace | quote }}
   annotations:
     volume.beta.kubernetes.io/storage-class: {{ .Values.global.storageClass |quote }}
+    "helm.sh/hook": pre-install
 spec:
   storageClassName: {{ .Values.global.storageClass |quote }}
   accessModes:

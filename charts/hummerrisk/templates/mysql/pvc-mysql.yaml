@@ -6,6 +6,8 @@ metadata:
   name: {{ $pvcFullName }}-mysql
   namespace: {{ .Release.Namespace | quote }}
   annotations:
+    "helm.sh/hook": pre-install
+  annotations:
     volume.beta.kubernetes.io/storage-class: {{ .Values.global.storageClass | quote }}
 spec:
   storageClassName: {{ .Values.global.storageClass |quote }}

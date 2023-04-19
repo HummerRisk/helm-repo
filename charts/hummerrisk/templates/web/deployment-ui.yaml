@@ -50,8 +50,6 @@ spec:
         volumeMounts:
           - name: config-volume
             mountPath: /etc/nginx/conf.d/
-          - name: log-volume
-            mountPath: /var/log/nginx/
         ports:
           - containerPort: 80
       volumes:
@@ -59,6 +57,3 @@ spec:
           configMap:
             defaultMode: 420
             name: hummerrisk-web-config
-        - name: log-volume
-          persistentVolumeClaim:
-            claimName: {{ $pvcFullName }}-logs

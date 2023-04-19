@@ -5,6 +5,8 @@ kind: ConfigMap
 metadata:
   name: hummerrisk-mysql-init
   namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    "helm.sh/hook": pre-install
   labels:
     app.kubernetes.io/name: mysql
 data:

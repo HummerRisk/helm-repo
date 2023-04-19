@@ -6,7 +6,7 @@ spec:
   template:
     spec:
       restartPolicy: OnFailure
-      terminationGracePeriodSeconds: 60
+      terminationGracePeriodSeconds: 30
       containers:
         - name: flyway
           image: "{{ .Values.global.imageRegistry }}/hummerrisk/hmr-flyway:{{ .Values.hummerrisk.image.tag }}"

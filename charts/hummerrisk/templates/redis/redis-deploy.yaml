@@ -6,6 +6,8 @@ kind: Service
 metadata:
   name: {{ $fullName }}-redis
   namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    "helm.sh/hook": pre-install
   labels:
     app.kubernetes.io/name: redis
 spec:

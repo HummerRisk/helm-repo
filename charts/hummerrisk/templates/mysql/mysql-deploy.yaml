@@ -6,6 +6,8 @@ kind: Service
 metadata:
   name: {{ $fullName }}-mysql
   namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    "helm.sh/hook": pre-install
   labels:
     app.kubernetes.io/name: mysql
 spec:
