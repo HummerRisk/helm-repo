@@ -17,4 +17,5 @@
 /.idea/helm-chart.iml
 /.idea/modules.xml
 /.idea/vcs.xml
-workspace.xml
+.idea/workspace.xml
+charts/hummerrisk/hummerrisk/.DS_Store
