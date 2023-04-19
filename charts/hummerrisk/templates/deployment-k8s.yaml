@@ -21,6 +21,15 @@ spec:
       labels:
         app: hummerrisk-k8s
     spec:
+      initContainers:
+        - name: db-init
+          image: "{{ .Values.global.imageRegistry }}/hummerrisk/trivy-db:{{ .Values.hummerrisk.image.tag }}-{{ .Values.trivy.trivyDBVersion }}"
+          imagePullPolicy: {{ .Values.hummerrisk.image.pullPolicy }}
+          command: [ 'sh','-c' ]
+          args: [ 'tar zxf /db/trivy-offline-v2-{{ .Values.trivy.trivyDBVersion }}.db.tar.gz -C /opt' ]
+          volumeMounts:
+            - mountPath: /opt
+              name: trivy-db
       #tolerations:
         #- effect: NoSchedule
         #  key: node-role.kubernetes.io/master
@@ -65,9 +74,21 @@ spec:
           - containerPort: 9501
           - containerPort: 8003
         volumeMounts:
-          - mountPath: /opt/hummerrisk/
+          - mountPath: /opt/hummerrisk/trivy
             name: data-k8s
+            subPath: trivy
+          - mountPath: /opt/hummerrisk/file
+            name: data-k8s
+            subPath: file
+          - mountPath: /opt/hummerrisk/image
+            name: data-k8s
+            subPath: image
+          - name: trivy-db
+            mountPath: /root/.cache/trivy/
       volumes:
         - name: data-k8s
           persistentVolumeClaim:
             claimName: {{ $pvcFullName }}-k8s
+        - name: trivy-db
+          persistentVolumeClaim:
+            claimName: {{ $pvcFullName }}-trivy-db

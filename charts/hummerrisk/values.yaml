@@ -42,9 +42,8 @@ redis:
     enabled: true
     accessModes: ReadWriteOnce
 
-trivyServer:
+trivy:
   trivyDBVersion: "20230410"
-  servicePort: 4975
   serviceType: ClusterIP
 
 externalMySQL:
@@ -108,11 +107,6 @@ ingress:
     # kubernetes.io/tls-acme: "true"
   hummerrisk:
     - host: hummerrisk.example.local
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  trivyServer:
-    - host: trivy.example.local
       paths:
         - path: /
           pathType: ImplementationSpecific

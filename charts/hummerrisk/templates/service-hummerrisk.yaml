@@ -10,7 +10,7 @@ spec:
   ports:
     - name: "hummerrisk-ui"
       port:  {{ .Values.hummerrisk.servicePort }}
-      targetPort: 8088
+      targetPort: 80
   selector:
     app: hummerrisk-ui
   type: {{ .Values.hummerrisk.serviceType }}
@@ -33,3 +33,39 @@ spec:
       targetPort: 8080
   selector:
     app: hummerrisk-gateway
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $fullName }}-auth
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: hummerrisk-auth
+spec:
+  type: ClusterIP
+  clusterIP: None
+  publishNotReadyAddresses: true
+  ports:
+    - name: hummerrisk-auth
+      port: 9200
+      targetPort: 9200
+  selector:
+    app: hummerrisk-auth
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $fullName }}-job
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: hummerrisk-job
+spec:
+  type: ClusterIP
+  clusterIP: None
+  publishNotReadyAddresses: true
+  ports:
+    - name: hummerrisk-auth
+      port: 8084
+      targetPort: 8084
+  selector:
+    app: hummerrisk-job
