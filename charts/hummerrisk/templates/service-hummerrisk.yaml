@@ -55,6 +55,24 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  name: {{ $fullName }}-system
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: hummerrisk-system
+spec:
+  type: ClusterIP
+  clusterIP: None
+  publishNotReadyAddresses: true
+  ports:
+    - name: hummerrisk-system
+      port: 9300
+      targetPort: 9300
+  selector:
+    app: hummerrisk-system
+---
+apiVersion: v1
+kind: Service
+metadata:
   name: {{ $fullName }}-job
   namespace: {{ .Release.Namespace | quote }}
   labels:
@@ -69,3 +87,21 @@ spec:
       targetPort: 8084
   selector:
     app: hummerrisk-job
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $fullName }}-xpack
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: hummerrisk-xpack
+spec:
+  type: ClusterIP
+  clusterIP: None
+  publishNotReadyAddresses: true
+  ports:
+    - name: hummerrisk-auth
+      port: 9600
+      targetPort: 9600
+  selector:
+    app: hummerrisk-xpack
