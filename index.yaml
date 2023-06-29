@@ -2,6 +2,23 @@ apiVersion: v1
 entries:
   hummerrisk:
   - apiVersion: v2
+    appVersion: v1.2.0
+    created: "2023-06-29T03:23:25.465579355Z"
+    description: HummerRisk is an open source cloud-native security platform that
+      addresses cloud-native security and governance issues in a non-intrusive way.
+      Core capabilities include hybrid cloud security governance and K8S container
+      cloud security detection.
+    digest: afa7df16bc19cc25c9f68af3562ccddf50eb0022e6f21ccc40eead7298f2d1d8
+    home: https://hummerrisk.com/
+    icon: https://docs.hummerrisk.com/img/logo/favicon-%E5%BD%A9%E8%89%B2.png
+    name: hummerrisk
+    sources:
+    - https://github.com/hummerrisk/
+    type: application
+    urls:
+    - https://github.com/HummerRisk/helm-repo/releases/download/hummerrisk-1.2.0/hummerrisk-1.2.0.tgz
+    version: 1.2.0
+  - apiVersion: v2
     appVersion: v1.0.0
     created: "2023-04-19T04:46:19.423182524Z"
     description: HummerRisk is an open source cloud-native security platform that
@@ -168,4 +185,4 @@ entries:
     urls:
     - https://hummerrisk.github.io/helm-repo/hummerrisk-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-19T04:46:19.423275424Z"
+generated: "2023-06-29T03:23:25.465688255Z"
