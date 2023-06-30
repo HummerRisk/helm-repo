@@ -54,7 +54,7 @@ spec:
           - name: HMR_NACOS_SERVER_ADDR
             value: {{ include "nacos.host" . | quote }}
           - name: LOG_PATH
-            value: "/opt/hummerrisk"
+            value: "/opt/hummerrisk/logs"
         livenessProbe:
           httpGet:
             path: /healthz
