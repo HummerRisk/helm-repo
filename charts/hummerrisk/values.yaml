@@ -17,7 +17,7 @@ global:
 hummerrisk:
   image:
     # Overrides the image tag whose default is the chart appVersion.
-    tag: v1.2.0
+    tag: v1.3.0
   replicas: 1
   # servicePort is the HTTP listener port for the webserver
   servicePort: 80
@@ -43,7 +43,7 @@ redis:
     accessModes: ReadWriteOnce
 
 trivy:
-  trivyDBVersion: "20230626"
+  trivyDBVersion: "20230723"
   serviceType: ClusterIP
 
 xpack:
