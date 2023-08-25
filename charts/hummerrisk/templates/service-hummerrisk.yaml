@@ -87,39 +87,3 @@ spec:
       targetPort: 8084
   selector:
     app: hummerrisk-job
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ $fullName }}-xpack
-  namespace: {{ .Release.Namespace | quote }}
-  labels:
-    app: hummerrisk-xpack
-spec:
-  type: ClusterIP
-  clusterIP: None
-  publishNotReadyAddresses: true
-  ports:
-    - name: hummerrisk-xpack
-      port: 9600
-      targetPort: 9600
-  selector:
-    app: hummerrisk-xpack
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ $fullName }}-scanner
-  namespace: {{ .Release.Namespace | quote }}
-  labels:
-    app: hummerrisk-xpack
-spec:
-  type: ClusterIP
-  clusterIP: None
-  publishNotReadyAddresses: true
-  ports:
-    - name: hummerrisk-scanner
-      port: 80
-      targetPort: 80
-  selector:
-    app: hummerrisk-scanner

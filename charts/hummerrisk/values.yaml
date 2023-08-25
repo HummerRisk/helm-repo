@@ -46,9 +46,6 @@ trivy:
   trivyDBVersion: "20230723"
   serviceType: ClusterIP
 
-xpack:
-  enabled: false
-
 externalMySQL:
   enabled: false
   host: mysql.local

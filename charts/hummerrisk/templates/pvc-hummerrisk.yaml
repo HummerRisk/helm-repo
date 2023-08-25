@@ -33,22 +33,3 @@ spec:
   resources:
     requests:
       storage: {{ .Values.storage.fileSize |quote }}
-{{- if .Values.xpack.enabled }}
----
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: {{ $pvcFullName }}-xpack
-  namespace: {{ .Release.Namespace | quote }}
-  annotations:
-    volume.beta.kubernetes.io/storage-class: {{ .Values.global.storageClass }}
-spec:
-  storageClassName: "{{ .Values.global.storageClass }}"
-  accessModes:
-    {{- range .Values.storage.accessModes }}
-    - {{ . | quote }}
-    {{- end }}
-  resources:
-    requests:
-      storage: {{ .Values.storage.fileSize |quote }}
-{{- end }}
